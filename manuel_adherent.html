@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portail Adhérent ASMT65 — Guide d'utilisation</title>
+<script>
+  // Si le guide est chargé en iframe dans le site ASMT65, on masque le bandeau
+  // interne (logo + sous-titre) car il fait doublon avec le menu du site.
+  // Exécuté avant le rendu du <body> pour éviter tout effet de clignotement.
+  try {
+    if (window.self !== window.top) {
+      document.documentElement.classList.add('en-iframe');
+    }
+  } catch (e) {
+    // Accès à window.top bloqué (cross-origin) => on considère qu'on est en iframe
+    document.documentElement.classList.add('en-iframe');
+  }
+</script>
+<style>
+  :root {
+    --bleu: #0a3d6b;
+    --bleu-fonce: #072c4e;
+    --bleu-clair: #e8f0f8;
+    --bleu-moyen: #4a7bab;
+    --accent: #2e9bd6;
+    --gris: #f4f6f8;
+    --texte: #1d2b3a;
+    --texte-doux: #5a6b7c;
+    --blanc: #ffffff;
+    --vert: #2e8b57;
+    --radius: 14px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--gris);
+    color: var(--texte);
+    min-height: 100vh;
+  }
+
+  /* ───────── HEADER ───────── */
+  header {
+    background: var(--bleu);
+    color: var(--blanc);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 12px rgba(10,61,107,.25);
+  }
+  header .logo-txt {
+    font-weight: 800;
+    font-size: 1.3rem;
+    letter-spacing: .5px;
+  }
+  header .sous-titre {
+    font-size: .8rem;
+    opacity: .85;
+    font-weight: 400;
+  }
+  /* ── Contexte iframe : le site parent a déjà son propre menu,
+     on masque le logo/sous-titre en double et on allège le bandeau ── */
+  html.en-iframe header {
+    padding: 10px 24px;
+  }
+  html.en-iframe header .logo-txt,
+  html.en-iframe header .sous-titre {
+    display: none;
+  }
+  header .btn-accueil {
+    margin-left: auto;
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.35);
+    color: var(--blanc);
+    padding: 8px 16px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: .85rem;
+    transition: background .2s;
+    display: none;
+  }
+  header .btn-accueil:hover, header .btn-accueil:focus-visible { background: rgba(255,255,255,.3); }
+
+  /* ───────── ÉCRANS ───────── */
+  .ecran { display: none; animation: fadeIn .25s ease; }
+  .ecran.actif { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  main { max-width: 900px; margin: 0 auto; padding: 28px 20px 60px; }
+
+  /* ───────── ACCUEIL : TUILES ───────── */
+  .intro {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .intro h1 { color: var(--bleu); font-size: 1.5rem; margin-bottom: 6px; }
+  .intro p { color: var(--texte-doux); font-size: .95rem; }
+
+  .tuiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .tuile {
+    background: var(--blanc);
+    border: 2px solid transparent;
+    border-radius: var(--radius);
+    padding: 22px 20px;
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 1px 4px rgba(29,43,58,.08);
+    transition: transform .15s, box-shadow .15s, border-color .15s;
+    font-family: inherit;
+    font-size: 1rem;
+  }
+  .tuile:hover, .tuile:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(10,61,107,.15);
+    border-color: var(--accent);
+    outline: none;
+  }
+  .tuile .ico {
+    width: 52px; height: 52px;
+    border-radius: 12px;
+    background: var(--bleu-clair);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  .tuile .lbl { font-weight: 700; color: var(--bleu); line-height: 1.3; }
+  .tuile .desc { font-size: .8rem; color: var(--texte-doux); margin-top: 3px; font-weight: 400; }
+
+  /* ───────── FICHE ACTION ───────── */
+  .fiche {
+    background: var(--blanc);
+    border-radius: var(--radius);
+    padding: 30px 34px;
+    box-shadow: 0 1px 6px rgba(29,43,58,.08);
+  }
+  .fiche h2 {
+    color: var(--bleu);
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 4px;
+  }
+  .fiche .chemin {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--bleu-clair);
+    color: var(--bleu);
+    font-weight: 600;
+    font-size: .85rem;
+    padding: 7px 14px;
+    border-radius: 50px;
+    margin: 14px 0 20px;
+  }
+  .prerequis {
+    background: #fff8e6;
+    border-left: 4px solid #e8b93e;
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    font-size: .9rem;
+    margin-bottom: 20px;
+  }
+  .prerequis strong { color: #8a6d1c; }
+
+  .etapes { list-style: none; counter-reset: etape; margin: 6px 0 22px; }
+  .etapes li {
+    counter-increment: etape;
+    position: relative;
+    padding: 10px 0 10px 42px;
+    font-size: .95rem;
+    line-height: 1.5;
+  }
+  .etapes li::before {
+    content: counter(etape);
+    position: absolute;
+    left: 0;
+    top: 10px;
+    background: var(--bleu);
+    color: var(--blanc);
+    font-weight: 700;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .85rem;
+  }
+  .etapes li b { color: var(--bleu); }
+
+  /* ── Lightbox : clic pour agrandir une capture ── */
+  html.en-iframe footer {
+    display: none;
+  }
+  .capture-img { cursor: zoom-in; }
+  .lightbox-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(7,44,78,.88);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    cursor: zoom-out;
+    animation: fadeIn .15s ease;
+  }
+  .lightbox-overlay.actif { display: flex; }
+  .lightbox-overlay img {
+    max-width: 92vw;
+    max-height: 88vh;
+    border-radius: 10px;
+    box-shadow: 0 8px 40px rgba(0,0,0,.5);
+    cursor: default;
+  }
+  .lightbox-fermer {
+    position: fixed;
+    top: 18px;
+    right: 24px;
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.4);
+    color: var(--blanc);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lightbox-fermer:hover { background: rgba(255,255,255,.3); }
+  .capture-img {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid #d5dee6;
+    box-shadow: 0 2px 8px rgba(29,43,58,.1);
+    margin: 6px auto 22px;
+    display: block;
+  }
+  .capture {
+    border: 2px dashed #b9c6d2;
+    border-radius: 10px;
+    background: var(--gris);
+    color: var(--texte-doux);
+    text-align: center;
+    padding: 34px 16px;
+    font-size: .88rem;
+    font-style: italic;
+    margin: 6px 0 22px;
+  }
+
+  .astuce {
+    background: var(--bleu-clair);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: .9rem;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    line-height: 1.5;
+  }
+  .astuce .amp { font-size: 1.1rem; }
+
+  /* Sous-actions (onglets pour Gérer les salariés) */
+  .sous-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 4px 0 24px;
+  }
+  .sous-actions button {
+    font-family: inherit;
+    border: 2px solid var(--bleu-clair);
+    background: var(--blanc);
+    color: var(--bleu);
+    font-weight: 600;
+    font-size: .85rem;
+    padding: 8px 16px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .sous-actions button:hover, .sous-actions button:focus-visible { border-color: var(--accent); outline: none; }
+  .sous-actions button.actif {
+    background: var(--bleu);
+    color: var(--blanc);
+    border-color: var(--bleu);
+  }
+  .sous-panneau { display: none; }
+  .sous-panneau.actif { display: block; animation: fadeIn .2s ease; }
+
+  /* Nav bas de fiche */
+  .nav-fiche {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 26px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .nav-fiche button {
+    font-family: inherit;
+    font-size: .9rem;
+    font-weight: 600;
+    padding: 11px 22px;
+    border-radius: 50px;
+    cursor: pointer;
+    border: none;
+    transition: all .15s;
+  }
+  .btn-retour {
+    background: var(--gris);
+    color: var(--bleu);
+  }
+  .btn-retour:hover, .btn-retour:focus-visible { background: var(--bleu-clair); outline: none; }
+  .btn-suivant {
+    background: var(--bleu);
+    color: var(--blanc);
+  }
+  .btn-suivant:hover, .btn-suivant:focus-visible { background: var(--bleu-fonce); outline: none; }
+
+  /* ───────── FOOTER ───────── */
+  footer {
+    text-align: center;
+    padding: 22px 16px 30px;
+    font-size: .8rem;
+    color: var(--texte-doux);
+  }
+  footer .contacts {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--bleu);
+  }
+  footer a { color: var(--bleu-moyen); }
+
+
+  .badge-bientot {
+    display: inline-block;
+    background: #f2a93b;
+    color: #5c3d00;
+    font-size: .65rem;
+    font-weight: 700;
+    padding: 2px 9px;
+    border-radius: 50px;
+    margin-left: 8px;
+    vertical-align: middle;
+    letter-spacing: .3px;
+  }
+  .bandeau-bientot {
+    background: #fff4de;
+    border-left: 4px solid #f2a93b;
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    font-size: .88rem;
+    margin-bottom: 20px;
+    color: #6b4c00;
+  }
+
+  .capture-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin: 6px 0 22px;
+    justify-content: center;
+  }
+  .capture-row .capture-img {
+    margin: 0;
+    flex: 0 1 auto;
+    max-height: 420px;
+    width: auto;
+  }
+  @media (max-width: 560px) {
+    .fiche { padding: 22px 18px; }
+    .tuile { padding: 18px 16px; }
+    header .sous-titre { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ecran, .sous-panneau, .tuile { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="logo-txt">ASMT65</div>
+    <div class="sous-titre">Portail Adhérent — Guide d'utilisation</div>
+  </div>
+  <button class="btn-accueil" id="btnAccueil" onclick="allerAccueil()">← Accueil</button>
+</header>
+
+<main>
+
+  <!-- ═════════ ACCUEIL ═════════ -->
+  <section class="ecran actif" id="accueil">
+    <div class="intro">
+      <h1>Que voulez-vous faire ?</h1>
+      <p>Cliquez sur une action — chaque fiche vous guide pas à pas.</p>
+    </div>
+    <div class="tuiles">
+      <button class="tuile" onclick="ouvrirFiche('connexion')">
+        <span class="ico">🔐</span>
+        <span><span class="lbl">Se connecter</span><br><span class="desc">Accéder au portail en toute sécurité</span></span>
+      </button>
+      <button class="tuile" onclick="ouvrirFiche('tableau')">
+        <span class="ico">📊</span>
+        <span><span class="lbl">Le tableau de bord</span><br><span class="desc">Comprendre votre page d'accueil</span></span>
+      </button>
+      <button class="tuile" onclick="ouvrirFiche('salaries')">
+        <span class="ico">👥</span>
+        <span><span class="lbl">Gérer les salariés</span><br><span class="desc">Ajouter, modifier, changer de poste, départ, réactiver</span></span>
+      </button>
+      <button class="tuile" onclick="ouvrirFiche('visite')">
+        <span class="ico">🩺</span>
+        <span><span class="lbl">Demander une visite médicale</span><br><span class="desc">Planifier une visite pour un salarié</span></span>
+      </button>
+      <button class="tuile" onclick="ouvrirFiche('documents')">
+        <span class="ico">📁</span>
+        <span><span class="lbl">Documents &amp; factures</span><br><span class="desc">Retrouver et télécharger vos documents</span></span>
+      </button>
+      <button class="tuile" onclick="ouvrirFiche('declaration')">
+        <span class="ico">📋</span>
+        <span><span class="lbl">Déclarer les effectifs</span><br><span class="desc">Votre déclaration annuelle</span></span>
+      </button>
+      <button class="tuile" onclick="ouvrirFiche('tiers')">
+        <span class="ico">🤝</span>
+        <span><span class="lbl">Donner accès à un tiers</span><br><span class="desc">Expert-comptable, cabinet RH, gestionnaire…</span></span>
+      </button>
+      <button class="tuile" onclick="ouvrirFiche('amt')">
+        <span class="ico">🛡️</span>
+        <span><span class="lbl">Prévention des risques</span><br><span class="desc">Portail MAP, DUERP</span></span>
+      </button>
+      <button class="tuile" onclick="ouvrirFiche('etablissement')">
+        <span class="ico">🏢</span>
+        <span><span class="lbl">Mon établissement</span><br><span class="desc">Informations, contacts</span></span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ═════════ 1. CONNEXION ═════════ -->
+  <section class="ecran" id="fiche-connexion">
+    <div class="fiche">
+      <h2>🔐 Se connecter au portail</h2>
+      <div class="chemin">🌐 <a href="https://portailasmt65.pulseprevention.com/" target="_blank" rel="noopener">https://portailasmt65.pulseprevention.com/</a></div>
+
+      <div class="sous-actions" role="tablist">
+        <button class="actif" onclick="afficherSous(this,'co-habituelle')">🔁 Connexion habituelle</button>
+        <button onclick="afficherSous(this,'co-mdp')">🔑 Mot de passe oublié</button>
+        <button onclick="afficherSous(this,'co-premiere')">🆕 Nouvelle adhésion</button>
+      </div>
+
+      <!-- Première connexion -->
+      <div class="sous-panneau" id="co-premiere">
+        <ol class="etapes">
+          <li>Ouvrez l'<b>e-mail d'invitation</b> reçu de la part de Pulse / ASMT65, ou rendez-vous sur la page de connexion du portail.</li>
+          <li>Dans l'encart <b>Nouvelle adhésion ?</b>, cliquez sur <b>C'est parti !</b></li>
+        </ol>
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-01.jpg" alt="Page d'accueil avec le bouton C'est parti pour démarrer la simulation d'adhésion">
+        <ol class="etapes" style="counter-reset: etape 2;">
+          <li>L'écran <b>Bienvenue !</b> s'affiche : toute demande commence par une simulation du montant de la cotisation. Cliquez sur <b>Continuer</b>.</li>
+        </ol>
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-02.jpg" alt="Écran de bienvenue avec le bouton Continuer">
+        <ol class="etapes" style="counter-reset: etape 3;">
+          <li>Renseignez votre <b>code postal</b> et sélectionnez votre commune dans la liste proposée.</li>
+        </ol>
+        
+        <ol class="etapes" style="counter-reset: etape 4;">
+          <li>L'écran <b>Quel est votre profil ?</b> s'affiche.</li>
+        </ol>
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-03.jpg" alt="Écran Quel est votre profil avec le bouton Continuer inactif et le choix Employeur/Indépendant absent">
+        <div class="bandeau-bientot">🐞 <b>Bug identifié</b> — le choix entre <b>Employeur</b> et <b>Indépendant</b> ne s'affiche pas sur cet écran et le bouton Continuer reste inactif, ce qui bloque la suite du parcours. Point remonté à Pulse Prévention.</div>
+      </div>
+
+      <!-- Connexion habituelle -->
+      <div class="sous-panneau actif" id="co-habituelle">
+        <div class="prerequis"><strong>Avant de commencer :</strong> ayez accès à votre boîte mail — un code de vérification vous y sera envoyé.</div>
+        <ol class="etapes">
+          <li>Saisissez votre <b>adresse e-mail</b> et votre <b>mot de passe</b>, puis cliquez sur <b>Se connecter</b>.</li>
+        </ol>
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-04.jpg" alt="Page de connexion du portail Pulse avec le bouton Se connecter">
+        <ol class="etapes" style="counter-reset: etape 1;">
+          <li>Un écran de double authentification s'affiche. Si l'application d'authentification n'est pas configurée, cliquez sur <b>Utiliser le code par email</b>.</li>
+        </ol>
+        <div class="capture-row"><img class="capture-img" onclick="agrandirImage(this)" src="images/capture-05.jpg" alt="Écran d'authentification à deux facteurs avec le bouton Utiliser le code par email"><img class="capture-img" onclick="agrandirImage(this)" src="images/capture-06.jpg" alt="Écran de saisie du code reçu par email"></div>
+        <ol class="etapes" style="counter-reset: etape 2;">
+          <li>Saisissez le <b>code reçu par e-mail</b> dans le champ prévu, puis cliquez sur <b>Se connecter</b>.</li>
+        </ol>
+        
+        <div class="astuce" style="margin-bottom:20px;"><span class="amp">✉️</span><span>Voici à quoi ressemble l'e-mail contenant votre code :</span></div>
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-07.jpg" alt="Email reçu contenant le code de validation à 6 chiffres">
+        <div class="astuce"><span class="amp">💡</span><span>Pour protéger vos données, la double authentification (par e-mail ou application) est <b>systématique à chaque connexion</b>.</span></div>
+      </div>
+
+      <!-- Mot de passe oublié -->
+      <div class="sous-panneau" id="co-mdp">
+        <ol class="etapes">
+          <li>Sur la page de connexion, cliquez sur <b>Mot de passe oublié ?</b></li>
+        </ol>
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-08.jpg" alt="Page de connexion avec le lien Mot de passe oublié encadré">
+        <ol class="etapes" style="counter-reset: etape 1;">
+          <li>Saisissez votre <b>e-mail</b>, puis cliquez sur <b>Réinitialiser le mot de passe</b>.</li>
+        </ol>
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-09.jpg" alt="Écran de demande de réinitialisation avec champ email">
+        <ol class="etapes" style="counter-reset: etape 2;">
+          <li>Consultez votre boîte mail et cliquez sur <b>Ouvrir l'application</b> dans l'e-mail reçu.</li>
+        </ol>
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-10.jpg" alt="Email de réinitialisation de mot de passe avec le bouton Ouvrir l'application">
+        <ol class="etapes" style="counter-reset: etape 3;">
+          <li>Saisissez votre <b>nouveau mot de passe</b> deux fois, puis cliquez sur <b>Réinitialiser</b>.</li>
+        </ol>
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-11.jpg" alt="Écran de saisie du nouveau mot de passe">
+        <ol class="etapes" style="counter-reset: etape 4;">
+          <li>Un message confirme la réinitialisation. Cliquez sur le lien pour vous reconnecter.</li>
+        </ol>
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-12.jpg" alt="Message de confirmation de réinitialisation avec lien de reconnexion">
+      </div>
+
+      <div class="nav-fiche">
+        <button class="btn-retour" onclick="allerAccueil()">← Accueil</button>
+        <button class="btn-suivant" onclick="ouvrirFiche('tableau')">Le tableau de bord →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ 2. TABLEAU DE BORD ═════════ -->
+  <section class="ecran" id="fiche-tableau">
+    <div class="fiche">
+      <h2>📊 Le tableau de bord</h2>
+      <div class="chemin">📍 Page d'accueil après connexion</div>
+
+      <p style="font-size:.95rem; line-height:1.6; margin-bottom:18px;">C'est la première page affichée après connexion. Elle résume la situation de votre entreprise en un coup d'œil : répartition des salariés (âge, genre, catégorie), résumé actifs/inactifs, aperçu de l'entreprise et suivi des examens réalisés.</p>
+
+      <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-13.jpg" alt="Tableau de bord avec graphiques salariés et bandeau de rappel DUERP">
+
+      <div class="astuce"><span class="amp">💡</span><span>Si le bandeau de rappel DUERP s'affiche en haut, cliquez <b>Oui</b> si vous l'avez déjà transmis, ou <b>Non</b> pour être guidé vers la déclaration.</span></div>
+      <div class="astuce"><span class="amp">⚙️</span><span>La <b>roue crantée</b> en haut à droite ouvre les <b>paramètres du tableau de bord</b> : elle permet d'afficher, de masquer et de <b>réordonner</b> chaque graphique selon vos préférences.</span></div>
+
+      <div class="nav-fiche">
+        <button class="btn-retour" onclick="allerAccueil()">← Accueil</button>
+        <button class="btn-suivant" onclick="ouvrirFiche('salaries')">Gérer les salariés →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ 3. SALARIÉS ═════════ -->
+  <section class="ecran" id="fiche-salaries">
+    <div class="fiche">
+      <h2>👥 Gérer les salariés</h2>
+      <div class="chemin">📍 Menu <b>&nbsp;Salariés</b></div>
+
+      <div class="sous-actions" role="tablist">
+        <button class="actif" onclick="afficherSous(this,'sa-ajouter')">➕ Ajouter</button>
+        <button onclick="afficherSous(this,'sa-modifier')">✏️ Modifier</button>
+        <button onclick="afficherSous(this,'sa-poste')">🔄 Changer de poste</button>
+        <button onclick="afficherSous(this,'sa-depart')">🚪 Départ d'un salarié</button>
+        <button onclick="afficherSous(this,'sa-reactiver')">🔁 Réactiver</button>
+      </div>
+
+      <!-- Ajouter -->
+      <div class="sous-panneau actif" id="sa-ajouter">
+        <div class="prerequis"><strong>Avant de commencer :</strong> ayez sous la main le <b>numéro de sécurité sociale</b> du salarié et les informations sur son <b>poste</b>.</div>
+        <ol class="etapes">
+          <li>Dans le menu <b>Salariés</b>, cliquez sur <b>Ajouter un salarié</b>.</li>
+          <li>Renseignez son <b>numéro de sécurité sociale</b> — l'écran se complète en 2 parties : la <b>partie administrative</b> (état civil) et la <b>fiche de poste</b>.</li>
+          <li>Complétez le <b>poste</b>, la <b>date d'embauche</b> et les <b>risques</b> liés à son activité.</li>
+        </ol>
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-14.jpg" alt="Formulaire d'ajout d'un salarié avec partie administrative et fiche de poste">
+        <ol class="etapes" style="counter-reset: etape 3;">
+          <li>Cliquez sur <b>Enregistrer</b> pour créer le salarié.</li>
+        </ol>
+        <div class="astuce"><span class="amp">💡</span><span>Renseignez le poste et les risques avec précision : ces informations apparaissent dans la <b>catégorie de suivi</b> affichée sur la fiche du salarié.</span></div>
+      </div>
+
+      <!-- Modifier -->
+      <div class="sous-panneau" id="sa-modifier">
+        <ol class="etapes">
+          <li>Dans la liste des salariés, cliquez sur <b>Afficher les filtres</b> si besoin de retrouver rapidement une personne.</li>
+        </ol>
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-15.jpg" alt="Liste des salariés avec le bouton Afficher les filtres encadré">
+        <ol class="etapes" style="counter-reset: etape 1;">
+          <li>Affinez par <b>adhérent</b>, <b>nom</b>, <b>genre</b>, <b>tranche d'âge</b>, <b>date d'embauche</b>, <b>catégorie</b> ou <b>risques</b>, puis cliquez sur <b>Valider</b>.</li>
+        </ol>
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-16.jpg" alt="Fenêtre Afficher les filtres avec les critères de recherche">
+        <ol class="etapes" style="counter-reset: etape 2;">
+          <li>Cliquez sur la fiche du salarié retrouvé, puis sur <b>Modifier</b>.</li>
+          <li>Mettez à jour les informations, puis cliquez sur <b>Enregistrer</b>.</li>
+        </ol>
+      </div>
+
+      <!-- Changer de poste -->
+      <div class="sous-panneau" id="sa-poste">
+        <ol class="etapes">
+          <li>Ouvrez la fiche du salarié concerné, puis cliquez sur <b>Modifier le poste</b>.</li>
+          <li>Une fenêtre propose 2 options.</li>
+        </ol>
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-17.jpg" alt="Fenêtre proposant Corriger le poste ou Changer de poste">
+        <div class="astuce"><span class="amp">💡</span><span><b>Changer de poste</b> : le poste précédent est clôturé à la veille de la date du nouveau poste — utile pour une évolution réelle. <b>Corriger le poste</b> : ouvre le poste actuel en modification, pour rectifier une erreur de saisie sans créer de nouvel historique.</span></div>
+        
+      </div>
+
+      <!-- Départ -->
+      <div class="sous-panneau" id="sa-depart">
+        <ol class="etapes">
+          <li>Ouvrez la fiche du salarié qui quitte l'entreprise, dans les données du poste.</li>
+          <li>Renseignez une <b>date passée</b> dans le champ <b>Date de fin de contrat</b>.</li>
+          <li>Enregistrez — le poste devient inactif à cette date.</li>
+        </ol>
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-18.jpg" alt="Champ Date de fin de contrat dans la fiche de poste du salarié">
+        <div class="astuce"><span class="amp">💡</span><span>Un salarié désactivé n'est <b>pas supprimé</b> de la base.</span></div>
+      </div>
+
+
+      <!-- Réactiver -->
+      <div class="sous-panneau" id="sa-reactiver">
+        <p style="font-size:.95rem; line-height:1.6; margin-bottom:16px;">Un salarié qui revient dans l'entreprise (réembauche, retour…) peut être réactivé — inutile de le recréer.</p>
+        <ol class="etapes">
+          <li>Dans la liste des salariés, cliquez sur <b>Afficher les inactifs</b>.</li>
+        </ol>
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-19.jpg" alt="Liste des salariés — bouton Afficher les inactifs en haut de la liste">
+        <ol class="etapes" style="counter-reset: etape 1;">
+          <li>Les salariés inactifs apparaissent <b>grisés en italique</b>. Retrouvez la personne concernée et cliquez sur le <b>crayon</b> ✏️ de sa ligne.</li>
+        </ol>
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-20.jpg" alt="Liste affichant les salariés inactifs en italique grisé">
+        <ol class="etapes" style="counter-reset: etape 2;">
+          <li>Dans sa fiche, cliquez sur <b>+ Ajouter un poste</b>.</li>
+          <li>Renseignez le nouveau poste et sa date d'entrée, puis cliquez sur <b>Enregistrer</b>.</li>
+        </ol>
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-21.jpg" alt="Fiche salarié — bouton Ajouter un poste à droite">
+        <div class="astuce"><span class="amp">💡</span><span>Dès qu'un poste actif est enregistré, le salarié redevient <b>Actif</b> et réapparaît dans la liste par défaut.</span></div>
+      </div>
+
+      <div class="nav-fiche">
+        <button class="btn-retour" onclick="allerAccueil()">← Accueil</button>
+        <button class="btn-suivant" onclick="ouvrirFiche('visite')">Demander une visite →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ 4. VISITE MÉDICALE ═════════ -->
+  <section class="ecran" id="fiche-visite">
+    <div class="fiche">
+      <h2>🩺 Demander une visite médicale</h2>
+
+      <div class="sous-actions" role="tablist">
+        <button class="actif" onclick="afficherSous(this,'visite-demande')">📋 Demander une visite</button>
+        <button onclick="afficherSous(this,'visite-planification')">📅 Planification</button>
+      </div>
+
+      <!-- SOUS-PANNEAU 1 : Demander une visite -->
+      <div id="visite-demande" class="sous-panneau actif">
+
+        <p>Depuis la liste des salariés, vous pouvez initier une demande de visite médicale de deux façons grâce aux <b>icônes situées à droite</b> de chaque ligne salarié.</p>
+
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-22.png" alt="Liste des salariés avec icônes d'action" />
+
+        <ol class="etapes">
+          <li>L'<b>icône presse-papiers</b> (gauche, encadrée en rouge) envoie une demande de visite à l'assistante médicale.</li>
+        </ol>
+        <div class="bandeau-bientot">⚠️ L'<b>icône calendrier</b> (droite, encadrée en rouge) permet de planifier directement sur une plage horaire — <b>cette fonctionnalité n'est pas encore active</b>. Utilisez uniquement l'icône presse-papiers pour envoyer une demande à l'assistante.</div>
+        <ol class="etapes" start="2">
+        </ol>
+
+        <h3>Formulaire de demande</h3>
+        <p>En cliquant sur l'<b>icône presse-papiers</b>, une fenêtre s'ouvre :</p>
+
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-23.png" alt="Formulaire Ajouter une demande de visite médicale" style="max-width:420px;" />
+
+        <ol class="etapes">
+          <li>Vérifiez le champ <b>Adhérent du salarié</b> — il est pré-rempli avec votre établissement.</li>
+          <li>Sélectionnez le <b>type de visite</b> dans la liste déroulante.</li>
+          <li>Joignez un fichier si nécessaire (optionnel) — formats acceptés : PDF, PNG, JPG (max 5 Mo).</li>
+          <li>Saisissez une <b>description</b> pour préciser le motif ou tout élément utile à l'assistante (2 000 caractères max).</li>
+          <li>Cliquez sur <b>Ajouter</b> pour envoyer la demande.</li>
+        </ol>
+
+        <div class="prerequis"><strong>À noter :</strong> l'assistante médicale prendra contact avec vous pour confirmer le rendez-vous.</div>
+
+      </div>
+
+      <!-- SOUS-PANNEAU 2 : Planification -->
+      <div id="visite-planification" class="sous-panneau">
+
+        <p>La section <b>Planification / Convocations et visites</b> vous permet de consulter l'ensemble des visites médicales planifiées pour vos salariés.</p>
+
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-24.png" alt="Écran Planification – Convocations et visites" />
+
+        <p>Le tableau affiche pour chaque salarié :</p>
+        <ol class="etapes">
+          <li><b>Salarié</b> — nom et prénom.</li>
+          <li><b>Catégorie</b> — SI (Suivi Individuel) ou SIA (Suivi Individuel Adapté).</li>
+          <li><b>Type de visite</b> — ex. Visite d'information et de prévention initiale, périodique…</li>
+          <li><b>Date planifiée</b> — date et heure du rendez-vous.</li>
+          <li><b>Convocation</b> — indique si la convocation a été envoyée.</li>
+          <li><b>Statut</b> — ex. Planifié, Réalisé, Absent.</li>
+        </ol>
+
+        <p>Vous pouvez filtrer l'affichage par <b>date de rendez-vous</b> ou par statut (<b>Planifiés</b>, <b>Absents</b>, <b>Réalisés</b>).</p>
+
+        <div class="bandeau-bientot">⚠️ <b>Bouton « Planifier un rendez-vous »</b> — ce bouton (en haut à droite de l'écran) n'est pas encore actif. Cette fonctionnalité sera disponible prochainement.</div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ 5. DOCUMENTS ═════════ -->
+  <section class="ecran" id="fiche-documents">
+    <div class="fiche">
+      <h2>📁 Documents &amp; factures</h2>
+      <div class="chemin">📍 Menu <b>&nbsp;Documents</b></div>
+
+      <ol class="etapes">
+        <li>Ouvrez le menu <b>Documents</b>.</li>
+        <li>Choisissez l'onglet : <b>Documents adhérent</b>, <b>Documents salariés</b> ou <b>Factures</b>.</li>
+        <li>Utilisez les <b>filtres</b> pour retrouver rapidement ce que vous cherchez.</li>
+        <li>Cliquez sur l'icône de <b>téléchargement</b> à droite de la ligne souhaitée.</li>
+      </ol>
+
+      <div class="prerequis"><strong>💬 Notification de nouveaux documents :</strong> une petite bulle apparaît sur l'icône du menu <b>Documents</b> lorsque des documents non lus sont disponibles. Elle disparaît une fois les documents consultés.</div>
+
+      <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-25.jpg" alt="Écran Documents adhérent avec liste des documents et pagination">
+
+      <div class="astuce"><span class="amp">💡</span><span>Utilisez la <b>pagination</b> en bas de liste pour naviguer entre les pages, et ajustez le nombre d'<b>éléments par page</b> si besoin.</span></div>
+
+      <p style="font-size:.95rem; line-height:1.6; margin:20px 0 12px;">L'onglet <b>Factures</b> fonctionne sur le même principe, avec le détail des montants et du statut de paiement :</p>
+
+      <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-26.jpg" alt="Écran Factures avec montants, TVA et statut de paiement">
+
+      <div class="nav-fiche">
+        <button class="btn-retour" onclick="allerAccueil()">← Accueil</button>
+        <button class="btn-suivant" onclick="ouvrirFiche('declaration')">Déclarer les effectifs →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ 6. DÉCLARATION ═════════ -->
+  <section class="ecran" id="fiche-declaration">
+    <div class="fiche">
+      <h2>📋 Déclarer les effectifs</h2>
+      <div class="chemin">📍 Menu <b>&nbsp;Déclaration</b></div>
+
+      <div class="prerequis"><strong>Avant de commencer :</strong> mettez à jour votre liste de salariés — la déclaration se pré-remplit à partir de celle-ci.</div>
+
+      <ol class="etapes">
+        <li>Ouvrez le menu <b>Déclaration</b>.</li>
+        <li>Si besoin, cliquez sur <b>Mettre à jour la liste des salariés</b> pour corriger les informations avant de déclarer.</li>
+        <li>Vérifiez le récapitulatif par catégorie, puis cliquez sur <b>Confirmer la déclaration</b>.</li>
+      </ol>
+
+      <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-27.jpg" alt="Écran de déclaration des effectifs avec récapitulatif par catégorie">
+
+      <div class="astuce"><span class="amp">💡</span><span>Un rappel s'affiche sur votre tableau de bord lorsqu'une déclaration est à réaliser. Le bouton <b>Visualiser la déclaration</b> permet de la prévisualiser avant validation définitive.</span></div>
+
+      <div class="nav-fiche">
+        <button class="btn-retour" onclick="allerAccueil()">← Accueil</button>
+        <button class="btn-suivant" onclick="ouvrirFiche('tiers')">Donner accès à un tiers →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ 7. TIERS ═════════ -->
+  <section class="ecran" id="fiche-tiers">
+    <div class="fiche">
+      <h2>🤝 Donner accès à un tiers</h2>
+      <div class="chemin">📍 Votre nom (en haut à droite) → <b>&nbsp;Gestion des utilisateurs</b></div>
+
+      <p style="font-size:.95rem; line-height:1.6; margin-bottom:16px;">Vous pouvez donner accès au portail à un <b>expert-comptable</b>, un <b>cabinet RH</b> ou un <b>gestionnaire de paie</b> — sans jamais partager vos propres identifiants.</p>
+
+      <div class="prerequis"><strong>Bon à savoir :</strong> seul <b>l'administrateur</b> du compte peut créer des accès. Par défaut, c'est la personne déclarée comme interlocuteur portail lors de l'adhésion.</div>
+
+      <ol class="etapes">
+        <li>Cliquez sur votre nom en haut à droite, puis sur <b>Gestion des utilisateurs</b>.</li>
+        <li>Cliquez sur <b>Créer un compte utilisateur</b>.</li>
+      </ol>
+
+      <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-28.jpg" alt="Écran Gestion des utilisateurs avec le bouton Créer un compte utilisateur">
+
+      <ol class="etapes" style="counter-reset: etape 2;">
+        <li>Renseignez le <b>nom</b>, <b>prénom</b> et <b>e-mail</b> du tiers.</li>
+        <li>Le champ <b>adhérent</b> est déjà renseigné si vous n'avez qu'un seul établissement. Si vous en avez plusieurs, sélectionnez celui concerné.</li>
+        <li>Cochez les <b>rôles</b> auxquels il aura accès (Administrateur, AMT, Entreprise, Déclaration, DUERP, Salariés, Facturation…).</li>
+        <li>Cliquez sur <b>Ajouter</b>.</li>
+      </ol>
+
+      <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-29.jpg" alt="Fenêtre de création d'un compte utilisateur avec la liste des rôles disponibles">
+
+      <div class="astuce"><span class="amp">💡</span><span>Attribuez uniquement les <b>rôles nécessaires</b> à la mission de la personne concernée.</span></div>
+
+      <ol class="etapes" style="counter-reset: etape 3;">
+        <li>Pour donner à cette même personne un accès à un <b>autre établissement</b> (avec ses propres rôles), retrouvez-la dans la liste des utilisateurs et cliquez sur son nom pour ouvrir <b>Gestion des droits</b>.</li>
+        <li>Cliquez sur <b>+ Ajouter un adhérent</b>, sélectionnez l'établissement concerné et cochez les rôles à lui attribuer.</li>
+        <li>Cliquez sur <b>Valider</b>.</li>
+      </ol>
+
+      <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-30.jpg" alt="Fenêtre Gestion des droits avec le bouton Ajouter un adhérent encadré">
+
+      <div class="astuce"><span class="amp">💡</span><span>Une même personne peut ainsi cumuler des accès à <b>plusieurs établissements</b>, chacun avec son propre jeu de rôles.</span></div>
+
+      <div class="nav-fiche">
+        <button class="btn-retour" onclick="allerAccueil()">← Accueil</button>
+        <button class="btn-suivant" onclick="ouvrirFiche('amt')">Prévention des risques →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ 8. AMT & PORTAIL MAP ═════════ -->
+  <section class="ecran" id="fiche-amt">
+    <div class="fiche">
+      <h2>🛡️ Prévention des risques</h2>
+      <div class="chemin">📍 Menu <b>&nbsp;AMT</b></div>
+
+      <div class="sous-actions" role="tablist">
+        <button class="actif" onclick="afficherSous(this,'amt-map')">🔗 Accéder à mon portail MAP</button>
+        <button onclick="afficherSous(this,'amt-duerp')">📄 Gérer mon DUERP</button>
+      </div>
+
+      <!-- Portail MAP -->
+      <div class="sous-panneau actif" id="amt-map">
+        <p style="font-size:.95rem; line-height:1.6; margin-bottom:16px;">Le portail <b>MAP</b> (Mon Approche Prévention) est votre espace personnalisé de prévention des risques professionnels, distinct du Portail Adhérent.</p>
+        <ol class="etapes">
+          <li>Ouvrez le menu <b>AMT</b> → <b>Général</b>.</li>
+          <li>La section <b>Mon Approche Prévention</b> s'affiche.</li>
+          <li>Cliquez sur <b>Accéder à mon portail MAP</b>.</li>
+          <li>Votre portail MAP personnalisé s'ouvre dans un <b>nouvel onglet</b>.</li>
+        </ol>
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-31.jpg" alt="Menu AMT avec le bouton Accéder à mon portail MAP">
+        <div class="astuce"><span class="amp">💡</span><span>Le portail MAP s'ouvre dans un <b>nouvel onglet</b>, séparé du Portail Adhérent.</span></div>
+      </div>
+
+      <!-- DUERP -->
+      <div class="sous-panneau" id="amt-duerp">
+        <p style="font-size:.95rem; line-height:1.6; margin-bottom:16px;">Le <b>DUERP</b> (Document Unique d'Évaluation des Risques Professionnels) est une obligation légale. Vous pouvez le transmettre et le consulter directement depuis le portail.</p>
+        <div class="chemin" style="margin-top:0;">📍 Menu <b>&nbsp;AMT → DUERP</b></div>
+        <ol class="etapes">
+          <li>Ouvrez le menu <b>AMT</b> → <b>DUERP</b>.</li>
+          <li>Cliquez sur <b>Transmettre mon DUERP</b>.</li>
+          <li>Cochez <b>Ajouter un fichier DUERP</b> et téléchargez votre document.</li>
+          <li>Renseignez la <b>date de dernière mise à jour</b> et cochez si un <b>plan d'actions de prévention</b> est défini.</li>
+          <li>Cliquez sur <b>Ajouter</b>.</li>
+        </ol>
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-32.jpg" alt="Écran DUERP avec historique et fenêtre de transmission ouverte">
+        <div class="astuce"><span class="amp">💡</span><span>Depuis le même écran, vous pouvez <b>télécharger</b> ou <b>supprimer</b> un DUERP déjà transmis grâce aux icônes sur chaque ligne. Un rappel s'affiche sur votre tableau de bord tant qu'il n'est pas transmis.</span></div>
+      </div>
+
+      <div class="nav-fiche">
+        <button class="btn-retour" onclick="allerAccueil()">← Accueil</button>
+        <button class="btn-suivant" onclick="ouvrirFiche('etablissement')">Mon établissement →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ 8. ÉTABLISSEMENT ═════════ -->
+  <section class="ecran" id="fiche-etablissement">
+    <div class="fiche">
+      <h2>🏢 Mon établissement</h2>
+      <div class="chemin">📍 Menu <b>&nbsp;Établissement</b></div>
+
+      <div class="sous-actions" role="tablist">
+        <button class="actif" onclick="afficherSous(this,'etab-info')">ℹ️ Informations</button>
+        <button onclick="afficherSous(this,'etab-contacts')">👤 Contacts</button>
+      </div>
+
+      <!-- Informations -->
+      <div class="sous-panneau actif" id="etab-info">
+        <p style="font-size:.95rem; line-height:1.6; margin-bottom:16px;">Ce menu permet de visualiser et, si nécessaire, de modifier les informations administratives de votre établissement.</p>
+        <ol class="etapes">
+          <li>Ouvrez le menu <b>Établissement</b> → <b>Informations</b>.</li>
+          <li>Si votre entreprise a plusieurs sièges, sélectionnez celui à consulter dans la liste en haut.</li>
+          <li>Cliquez sur <b>Modifier les informations de l'établissement</b> pour éditer les champs modifiables.</li>
+        </ol>
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-33.jpg" alt="Écran des informations de l'établissement avec le sélecteur de siège et le bouton Modifier">
+        <div class="astuce"><span class="amp">💡</span><span>Certains champs (nom, SIRET, code adhérent, centre médical...) sont <b>non modifiables</b>. Seules certaines informations comme la forme juridique, le code NAF ou l'adresse générale peuvent être mises à jour.</span></div>
+      </div>
+
+      <!-- Contacts -->
+      <div class="sous-panneau" id="etab-contacts">
+        <p style="font-size:.95rem; line-height:1.6; margin-bottom:16px;">Cette section permet de gérer les contacts associés à votre établissement : les visualiser, en ajouter, les modifier ou les supprimer.</p>
+        <ol class="etapes">
+          <li>Ouvrez le menu <b>Établissement</b> → <b>Contacts</b>.</li>
+          <li>Choisissez l'onglet <b>Établissement</b> ou <b>ASMT65</b> (les contacts ASMT65 sont en lecture seule).</li>
+          <li>Cliquez sur <b>Ajouter un contact de l'établissement</b>, ou sur les icônes ✏️ / 🗑️ d'une ligne pour modifier ou supprimer un contact existant.</li>
+        </ol>
+        <div class="bandeau-bientot">⚠️ <b>Important :</b> renseignez chaque contact avec la <b>bonne qualification</b> (interlocuteur convocation, interlocuteur portail, référent handicap, etc.). C'est ce qui garantit que le bon message arrive à la bonne personne — une donnée mal qualifiée peut ralentir voire bloquer une communication de l'ASMT65.</div>
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-34.jpg" alt="Écran des contacts de l'établissement avec liste et bouton d'ajout">
+      </div>
+
+      <div class="nav-fiche">
+        <button class="btn-retour" onclick="allerAccueil()">← Accueil</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="contacts">
+    <span>📞 05 62 93 81 81</span>
+    <span>✉️ contact@asmt65.fr</span>
+  </div>
+  <div>Votre service de prévention et de santé au travail – ASMT65 · <a href="https://www.asmt65.fr/rgpd/" target="_blank" rel="noopener">Protection des données (RGPD)</a></div>
+</footer>
+
+<div class="lightbox-overlay" id="lightbox" onclick="fermerImage()">
+  <button class="lightbox-fermer" onclick="fermerImage(event)">✕</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+  function agrandirImage(img) {
+    var lb = document.getElementById('lightbox');
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox-img').alt = img.alt;
+    lb.classList.add('actif');
+    document.addEventListener('keydown', fermerAvecEchap);
+  }
+  function fermerImage(e) {
+    if (e) e.stopPropagation();
+    document.getElementById('lightbox').classList.remove('actif');
+    document.removeEventListener('keydown', fermerAvecEchap);
+  }
+  function fermerAvecEchap(e) {
+    if (e.key === 'Escape') fermerImage();
+  }
+
+  function ouvrirFiche(id) {
+    document.querySelectorAll('.ecran').forEach(e => e.classList.remove('actif'));
+    document.getElementById('fiche-' + id).classList.add('actif');
+    document.getElementById('btnAccueil').style.display = 'block';
+    window.scrollTo({ top: 0 });
+  }
+  function allerAccueil() {
+    document.querySelectorAll('.ecran').forEach(e => e.classList.remove('actif'));
+    document.getElementById('accueil').classList.add('actif');
+    document.getElementById('btnAccueil').style.display = 'none';
+    window.scrollTo({ top: 0 });
+  }
+  function afficherSous(btn, id) {
+    btn.closest('.fiche').querySelectorAll('.sous-actions button').forEach(b => b.classList.remove('actif'));
+    btn.classList.add('actif');
+    btn.closest('.fiche').querySelectorAll('.sous-panneau').forEach(p => p.classList.remove('actif'));
+    document.getElementById(id).classList.add('actif');
+  }
+
+  /* ── Redimensionnement automatique de l'iframe ──
+     Le guide envoie sa hauteur réelle au site parent (postMessage) à chaque
+     changement de contenu, pour que l'iframe s'agrandisse/rétrécisse et
+     n'affiche jamais sa propre barre de défilement interne. */
+  function envoyerHauteurAuParent() {
+    if (window.self === window.top) return; // pas en iframe, rien à faire
+    var hauteur = document.documentElement.scrollHeight;
+    window.parent.postMessage({ type: 'asmt65-guide-hauteur', hauteur: hauteur }, '*');
+  }
+  window.addEventListener('load', envoyerHauteurAuParent);
+  window.addEventListener('resize', envoyerHauteurAuParent);
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(envoyerHauteurAuParent).observe(document.body);
+  } else {
+    // Filet de sécurité si ResizeObserver n'est pas dispo
+    setInterval(envoyerHauteurAuParent, 400);
+  }
+</script>
+
+</body>
+</html>
