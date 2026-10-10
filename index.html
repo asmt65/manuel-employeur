@@ -363,6 +363,44 @@
     vertical-align: middle;
     letter-spacing: .3px;
   }
+  /* ── Mise en avant « nouveau portail » (orange du site ASMT) ── */
+  .bandeau-nouveau {
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    background: #fff1e6; border: 2px solid #e8651a; border-radius: var(--radius);
+    padding: 16px 20px; margin: 0 0 26px; color: #7a2e05;
+  }
+  .bandeau-nouveau .ico { font-size: 1.8rem; line-height: 1; }
+  .bandeau-nouveau .txt { flex: 1 1 280px; font-size: .95rem; line-height: 1.45; }
+  .bandeau-nouveau .txt strong { display: block; font-size: 1.05rem; color: #9a3412; margin-bottom: 2px; }
+  .bandeau-nouveau button {
+    font-family: inherit; font-weight: 700; font-size: .9rem; white-space: nowrap;
+    background: #c2410c; color: #fff; border: 0; border-radius: 50px;
+    padding: 11px 22px; cursor: pointer; transition: background .15s;
+  }
+  .bandeau-nouveau button:hover, .bandeau-nouveau button:focus-visible { background: #9a3412; outline: none; }
+  /* Version discrète, une fois la fiche consultée */
+  .bandeau-nouveau.compact {
+    padding: 9px 16px; margin: 0 0 22px; gap: 10px;
+    background: #fff8f2; border: 1px solid #f0c9ad; border-radius: 10px;
+  }
+  .bandeau-nouveau.compact .ico { font-size: 1.1rem; }
+  .bandeau-nouveau.compact .txt { flex: 1 1 auto; font-size: .88rem; }
+  .bandeau-nouveau.compact .txt strong { display: inline; font-size: .88rem; margin: 0; }
+  .bandeau-nouveau.compact .detail { display: none; }
+  .bandeau-nouveau.compact button {
+    background: none; color: #9a3412; padding: 0; font-size: .88rem;
+    text-decoration: underline; border-radius: 0;
+  }
+  .bandeau-nouveau.compact button:hover, .bandeau-nouveau.compact button:focus-visible { background: none; color: #7a2e05; }
+  .tuile.nouveau { position: relative; border-color: #e8651a; }
+  .badge-nouveau {
+    position: absolute; top: -11px; right: 14px;
+    background: #c2410c; color: #fff; font-size: .68rem; font-weight: 800;
+    letter-spacing: .6px; padding: 3px 10px; border-radius: 50px;
+  }
+  .sous-actions button.nouveau { border-color: #e8651a; background: #fff1e6; color: #9a3412; }
+  .sous-actions button.nouveau:hover, .sous-actions button.nouveau:focus-visible { border-color: #c2410c; }
+  .sous-actions button.nouveau.actif { background: #c2410c; border-color: #c2410c; color: #fff; }
   .bandeau-bientot {
     background: #fff4de;
     border-left: 4px solid #f2a93b;
@@ -414,8 +452,16 @@
       <h1>Que voulez-vous faire ?</h1>
       <p>Cliquez sur une action — chaque fiche vous guide pas à pas.</p>
     </div>
+    <!-- DEBUT BANDEAU NOUVEAU PORTAIL — à supprimer (jusqu'à FIN) quand la bascule est terminée -->
+    <div class="bandeau-nouveau" role="note">
+      <span class="ico" aria-hidden="true">🚀</span>
+      <div class="txt"><strong>Compte admin : première connexion au nouveau portail ?</strong> <span class="detail">Créez d'abord votre nouvel accès avec votre ancien identifiant et votre ancien mot de passe.</span></div>
+      <button onclick="ouvrirPremierAcces()">Voir comment faire →</button>
+    </div>
+    <!-- FIN BANDEAU NOUVEAU PORTAIL -->
     <div class="tuiles">
-      <button class="tuile" onclick="ouvrirFiche('connexion')">
+      <button class="tuile nouveau" onclick="ouvrirFiche('connexion')">
+        <span class="badge-nouveau">NOUVEAU</span>
         <span class="ico">🔐</span>
         <span><span class="lbl">Se connecter</span><br><span class="desc">Accéder au portail en toute sécurité</span></span>
       </button>
@@ -458,12 +504,31 @@
   <section class="ecran" id="fiche-connexion">
     <div class="fiche">
       <h2>🔐 Se connecter au portail</h2>
-      <div class="chemin">🌐 <a href="https://portailasmt65.pulseprevention.com/" target="_blank" rel="noopener">https://portailasmt65.pulseprevention.com/</a></div>
+      <div class="chemin">🌐 <a href="https://espaceadherent-asmt65.pulseprevention.com" target="_blank" rel="noopener">https://espaceadherent-asmt65.pulseprevention.com</a></div>
 
       <div class="sous-actions" role="tablist">
-        <button class="actif" onclick="afficherSous(this,'co-habituelle')">🔁 Connexion habituelle</button>
+        <button class="nouveau actif" onclick="afficherSous(this,'co-nouveau')">🚀 Premier accès au nouveau portail</button>
+        <button onclick="afficherSous(this,'co-habituelle')">🔁 Connexion habituelle</button>
         <button onclick="afficherSous(this,'co-mdp')">🔑 Mot de passe oublié</button>
         <button onclick="afficherSous(this,'co-premiere')">🆕 Nouvelle adhésion</button>
+      </div>
+
+      <!-- Premier accès au nouveau portail (anciens identifiants) -->
+      <div class="sous-panneau actif" id="co-nouveau">
+        <div class="prerequis"><strong>Avant de commencer :</strong> munissez-vous de votre <b>ancien identifiant administrateur</b> et de votre <b>ancien mot de passe</b>. Cette étape concerne uniquement le <b>compte administrateur</b>, lors de votre <b>première connexion</b> au nouveau portail.</div>
+        <ol class="etapes">
+          <li>Depuis le site <b>www.asmt65.fr</b>, cliquez sur <b>Mon compte</b> en haut à droite, puis sur <b>Espace employeur</b>.</li>
+        </ol>
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-36.jpg" alt="Menu du site asmt65.fr avec Mon compte déplié et le lien Espace employeur">
+        <div class="astuce"><span class="amp">🔗</span><span>Vous pouvez aussi aller directement sur le nouveau portail : <a href="https://espaceadherent-asmt65.pulseprevention.com" target="_blank" rel="noopener">https://espaceadherent-asmt65.pulseprevention.com</a></span></div>
+        <ol class="etapes" style="counter-reset: etape 1;">
+          <li>Sur la page de connexion, dans l'encart violet <b>Pour passer de l'ancien au nouveau portail avec vos anciens identifiants</b>, cliquez sur <b>Créez votre nouvel accès</b>.</li>
+        </ol>
+        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-35.jpg" alt="Page de connexion du nouveau portail avec l'encart Pour passer de l'ancien au nouveau portail et le bouton Créez votre nouvel accès">
+        <ol class="etapes" style="counter-reset: etape 2;">
+          <li>Saisissez votre <b>ancien identifiant administrateur</b> et votre <b>ancien mot de passe</b> pour créer votre nouvel accès.</li>
+        </ol>
+        <div class="astuce"><span class="amp">💡</span><span>Pour vos connexions suivantes, passez par l'onglet <b>Connexion habituelle</b> avec votre nouvel accès.</span></div>
       </div>
 
       <!-- Première connexion -->
@@ -489,7 +554,7 @@
       </div>
 
       <!-- Connexion habituelle -->
-      <div class="sous-panneau actif" id="co-habituelle">
+      <div class="sous-panneau" id="co-habituelle">
         <div class="prerequis"><strong>Avant de commencer :</strong> ayez accès à votre boîte mail — un code de vérification vous y sera envoyé.</div>
         <ol class="etapes">
           <li>Saisissez votre <b>adresse e-mail</b> et votre <b>mot de passe</b>, puis cliquez sur <b>Se connecter</b>.</li>
@@ -938,13 +1003,50 @@
     if (e.key === 'Escape') fermerImage();
   }
 
+  /* ── Mise en avant « nouveau portail » : disparaît une fois consultée ──
+     Mémorisée dans le navigateur de l'adhérent (localStorage). Si le stockage est bloqué
+     (iframe, navigation privée), on retombe sur une variable : ça disparaît le temps de la visite.
+     Pour réafficher la mise en avant à tout le monde un jour : changer la clé (v1 → v2). */
+  const CLE_VU = 'asmt65-manuel-nouveau-portail-v1';
+  let vuEnMemoire = false;
+  function dejaVu() {
+    if (vuEnMemoire) return true;
+    try { return localStorage.getItem(CLE_VU) === '1'; } catch (e) { return false; }
+  }
+  function marquerVu() {
+    vuEnMemoire = true;
+    try { localStorage.setItem(CLE_VU, '1'); } catch (e) {}
+  }
+  /* Date à laquelle toute la mise en avant disparaît d'elle-même (AAAA-MM-JJ). À ajuster. */
+  const DATE_FIN_NOUVEAU = '2027-01-31';
+  function appliquerVu() {
+    const termine = new Date() >= new Date(DATE_FIN_NOUVEAU + 'T00:00:00');
+    if (termine) {
+      /* Bascule terminée : plus rien à signaler */
+      document.querySelectorAll('.bandeau-nouveau, .badge-nouveau').forEach(el => el.remove());
+      document.querySelectorAll('.nouveau').forEach(el => el.classList.remove('nouveau'));
+      return;
+    }
+    if (!dejaVu()) return;
+    /* Déjà consulté : on garde un simple rappel discret, sans badge ni couleurs vives */
+    document.querySelectorAll('.badge-nouveau').forEach(el => el.remove());
+    document.querySelectorAll('.nouveau').forEach(el => el.classList.remove('nouveau'));
+    document.querySelectorAll('.bandeau-nouveau').forEach(el => el.classList.add('compact'));
+  }
+
   function ouvrirFiche(id) {
+    if (id === 'connexion') marquerVu();
     document.querySelectorAll('.ecran').forEach(e => e.classList.remove('actif'));
     document.getElementById('fiche-' + id).classList.add('actif');
     document.getElementById('btnAccueil').style.display = 'block';
     window.scrollTo({ top: 0 });
   }
+  function ouvrirPremierAcces() {
+    ouvrirFiche('connexion');
+    afficherSous(document.querySelector('#fiche-connexion .sous-actions button'), 'co-nouveau');
+  }
   function allerAccueil() {
+    appliquerVu();
     document.querySelectorAll('.ecran').forEach(e => e.classList.remove('actif'));
     document.getElementById('accueil').classList.add('actif');
     document.getElementById('btnAccueil').style.display = 'none';
@@ -956,6 +1058,8 @@
     btn.closest('.fiche').querySelectorAll('.sous-panneau').forEach(p => p.classList.remove('actif'));
     document.getElementById(id).classList.add('actif');
   }
+
+  appliquerVu(); /* à l'ouverture : si déjà consulté, pas de mise en avant */
 
   /* ── Redimensionnement automatique de l'iframe ──
      Le guide envoie sa hauteur réelle au site parent (postMessage) à chaque
