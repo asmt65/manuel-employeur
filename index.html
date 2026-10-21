@@ -176,8 +176,35 @@
   }
   .prerequis strong { color: #8a6d1c; }
 
-  #co-premiere h3 { font-size: 1.05rem; color: var(--bleu); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 2px solid var(--bleu-clair); }
-  #co-premiere h3:first-of-type { margin-top: 6px; }
+  /* ── Fiche Nouvelle adhésion : étapes compactes (texte + vignette) ── */
+  .pas-liste { counter-reset: pas; margin: 8px 0 4px; }
+  .pas {
+    counter-increment: pas;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 6px 22px;
+    align-items: start;
+    padding: 14px 0;
+    border-top: 1px solid #e3eaf0;
+  }
+  .pas:first-child { border-top: none; }
+  .pas-txt { position: relative; padding-left: 42px; font-size: .93rem; line-height: 1.5; }
+  .pas-txt::before {
+    content: counter(pas);
+    position: absolute; left: 0; top: 1px;
+    background: var(--bleu); color: var(--blanc); font-weight: 700;
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: .85rem;
+  }
+  .pas-txt b { color: var(--bleu); }
+  .pas-txt .petit { display: block; margin-top: 6px; font-size: .84rem; color: var(--texte-doux); }
+  .pas-imgs { display: flex; flex-direction: column; gap: 8px; }
+  .pas-imgs .capture-img { margin: 0; width: 100%; max-width: none; }
+  @media (max-width: 700px) {
+    .pas { grid-template-columns: 1fr; }
+    .pas-imgs { flex-direction: row; flex-wrap: wrap; }
+    .pas-imgs .capture-img { max-width: 320px; }
+  }
 
   .etapes { list-style: none; counter-reset: etape; margin: 6px 0 22px; }
   .etapes li {
@@ -468,6 +495,10 @@
         <span class="ico">🔐</span>
         <span><span class="lbl">Se connecter</span><br><span class="desc">Accéder au portail en toute sécurité</span></span>
       </button>
+      <button class="tuile" onclick="ouvrirFiche('adhesion')">
+        <span class="ico">📝</span>
+        <span><span class="lbl">Nouvelle adhésion</span><br><span class="desc">Adhérer à l'ASMT65 en ligne : simulation, demande, signature</span></span>
+      </button>
       <button class="tuile" onclick="ouvrirFiche('tableau')">
         <span class="ico">📊</span>
         <span><span class="lbl">Le tableau de bord</span><br><span class="desc">Comprendre votre page d'accueil</span></span>
@@ -513,7 +544,6 @@
         <button class="nouveau actif" onclick="afficherSous(this,'co-nouveau')">🚀 Premier accès au nouveau portail</button>
         <button onclick="afficherSous(this,'co-habituelle')">🔁 Connexion habituelle</button>
         <button onclick="afficherSous(this,'co-mdp')">🔑 Mot de passe oublié</button>
-        <button onclick="afficherSous(this,'co-premiere')">🆕 Nouvelle adhésion</button>
       </div>
 
       <!-- Premier accès au nouveau portail (anciens identifiants) -->
@@ -532,87 +562,6 @@
           <li>Saisissez votre <b>ancien identifiant administrateur</b> et votre <b>ancien mot de passe</b> pour créer votre nouvel accès.</li>
         </ol>
         <div class="astuce"><span class="amp">💡</span><span>Pour vos connexions suivantes, passez par l'onglet <b>Connexion habituelle</b> avec votre nouvel accès.</span></div>
-      </div>
-
-      <!-- Nouvelle adhésion (employeur secteur privé) -->
-      <div class="sous-panneau" id="co-premiere">
-        <div class="prerequis"><strong>Avant de commencer :</strong> munissez-vous du <b>numéro SIRET</b> de votre établissement, de son <b>effectif</b> (salariés en CDI et CDD, à temps plein ou partiel), d'un <b>téléphone portable</b> (un code de signature vous sera envoyé par SMS) et de vos <b>coordonnées bancaires</b> pour le prélèvement. L'adhésion se fait <b>établissement par établissement</b>.</div>
-
-        <h3>Partie 1 — Simuler le montant de la cotisation</h3>
-        <ol class="etapes">
-          <li>Ouvrez l'<b>e-mail d'invitation</b> reçu de la part de Pulse / ASMT65, ou rendez-vous sur la page de connexion du portail.</li>
-          <li>Dans l'encart <b>Nouvelle adhésion ?</b>, cliquez sur <b>C'est parti !</b></li>
-        </ol>
-        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-01.jpg" alt="Page d'accueil avec le bouton C'est parti pour démarrer la simulation d'adhésion">
-        <ol class="etapes" style="counter-reset: etape 2;">
-          <li>L'écran <b>Adhésion en ligne</b> s'affiche : toute demande commence par une simulation du montant de la cotisation. Cliquez sur <b>Continuer</b>.</li>
-        </ol>
-        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-38.jpg" alt="Écran Adhésion en ligne avec le bouton Continuer">
-        <ol class="etapes" style="counter-reset: etape 3;">
-          <li>Saisissez le <b>code postal</b> de votre établissement et sélectionnez votre commune dans la liste proposée, puis cliquez sur <b>Continuer</b>.</li>
-        </ol>
-        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-39.jpg" alt="Écran Renseigner votre code postal avec la liste des communes">
-        <ol class="etapes" style="counter-reset: etape 4;">
-          <li>Sélectionnez votre <b>profil</b> : <b>Entreprise secteur Privé</b>, Agence Intérim (uniquement pour les salariés permanents), Indépendant ou Entreprise secteur Public. Pour un employeur du secteur privé, choisissez <b>Entreprise secteur Privé</b>, puis <b>Continuer</b>.</li>
-        </ol>
-        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-40.jpg" alt="Écran Quel est votre profil avec Entreprise secteur Privé sélectionné">
-        <ol class="etapes" style="counter-reset: etape 5;">
-          <li>Indiquez l'<b>effectif de votre établissement</b> (salariés en CDI et CDD, hors intérim, à temps plein ou partiel), puis <b>Continuer</b>.</li>
-        </ol>
-        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-41.jpg" alt="Écran Quel est l'effectif de votre établissement">
-        <ol class="etapes" style="counter-reset: etape 6;">
-          <li>La <b>simulation</b> de votre cotisation s'affiche : <b>frais d'adhésion</b> (facturés une seule fois) et <b>cotisation annuelle</b> (tarif appliqué pour chaque salarié). Pour demander votre adhésion, cliquez sur <b>Continuer vers le module adhésion</b>.</li>
-        </ol>
-        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-42.jpg" alt="Écran de simulation du montant de la cotisation avec le bouton Continuer vers le module adhésion">
-
-        <h3>Partie 2 — Faire votre demande d'adhésion</h3>
-        <div class="astuce"><span class="amp">💾</span><span>Le bouton <b>Reprendre plus tard</b>, présent à chaque étape, enregistre votre avancement : vous pourrez reprendre votre demande là où vous l'avez laissée.</span></div>
-        <ol class="etapes">
-          <li>Un écran <b>Adhérer à l'ASMT65</b> vous accueille (étape 1/8) : cliquez sur <b>Continuer</b>.</li>
-        </ol>
-        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-43.jpg" alt="Écran d'accueil du module d'adhésion, étape 1 sur 8">
-        <ol class="etapes" style="counter-reset: etape 1;">
-          <li><b>Étape 2/8 — SIRET.</b> Saisissez le <b>numéro SIRET</b> de votre établissement (14 chiffres), puis <b>Continuer</b>.</li>
-        </ol>
-        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-44.jpg" alt="Écran Renseigner votre SIRET">
-        <ol class="etapes" style="counter-reset: etape 2;">
-          <li><b>Étape 3/8 — Données administratives.</b> Les informations sont <b>pré-complétées</b> grâce au SIRET : vérifiez-les et corrigez-les si besoin (raison sociale, numéro de TVA, langue). Sélectionnez la <b>forme juridique</b> et le <b>code NAF</b> s'ils ne sont pas renseignés, puis <b>Continuer</b>.</li>
-        </ol>
-        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-45.jpg" alt="Écran Données administratives de l'établissement">
-        <ol class="etapes" style="counter-reset: etape 3;">
-          <li><b>Étape 4/8 — Adresse de l'établissement.</b> Vérifiez l'adresse et renseignez l'<b>e-mail</b> et le <b>téléphone</b> de l'établissement. Cochez les cases si l'adresse de <b>facturation</b> ou de <b>convocation</b> est différente, puis <b>Continuer</b>.</li>
-        </ol>
-        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-46.jpg" alt="Écran Adresse de l'établissement avec e-mail et téléphone">
-        <ol class="etapes" style="counter-reset: etape 4;">
-          <li><b>Étape 5/8 — Vos contacts.</b> Le contact <b>Interlocuteur portail</b> est <b>obligatoire</b> : renseignez son nom, son prénom, son téléphone professionnel et son e-mail, puis cliquez sur <b>Ajouter contact</b> (le message « Contact créé avec succès » confirme l'ajout) et enfin sur <b>Continuer</b>.</li>
-        </ol>
-        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-47.jpg" alt="Écran Vos contacts avec le contact Interlocuteur portail">
-        <div class="astuce"><span class="amp">📇</span><span>Vous pouvez ajouter d'autres contacts (convocation, référent handicap…). Choisissez à chaque fois le <b>bon type de contact</b> : c'est lui qui détermine qui reçoit quel message de l'ASMT65.</span></div>
-        <ol class="etapes" style="counter-reset: etape 5;">
-          <li><b>Étape 6/8 — Déclaration de vos salariés.</b> Cette étape est <b>facultative</b> : vous pouvez créer vos salariés maintenant avec <b>Ajouter un salarié</b>, ou cliquer directement sur <b>Continuer</b> pour les déclarer plus tard. Si vous êtes une agence d'intérim, créez uniquement vos salariés <b>permanents</b>.</li>
-        </ol>
-        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-48.jpg" alt="Écran Déclaration de vos salariés avec le bouton Ajouter un salarié">
-        <div class="astuce"><span class="amp">🪪</span><span>Pour ajouter un salarié, le formulaire demande notamment son <b>numéro de sécurité sociale</b>, son nom, ses prénoms et sa date de naissance. Renseignez-le uniquement si vous avez ces informations sous la main : sinon, passez à l'étape suivante.</span></div>
-        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-49.jpg" alt="Formulaire d'ajout d'un salarié avec le numéro de sécurité sociale" style="max-width:420px;">
-        <ol class="etapes" style="counter-reset: etape 6;">
-          <li><b>Étape 7/8 — Signature du contrat.</b> Le message « Merci de signer le contrat pour continuer votre demande d'adhésion » s'affiche. Cliquez sur <b>Signer le contrat</b>.</li>
-          <li>Vérifiez votre <b>nom</b>, votre <b>prénom</b>, votre <b>e-mail</b> et votre <b>numéro de portable</b>, puis cliquez sur <b>Confirmer</b>. Vous allez recevoir un <b>code unique par SMS</b>.</li>
-        </ol>
-        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-50.jpg" alt="Fenêtre Signer le contrat avec nom, prénom, e-mail et portable">
-        <ol class="etapes" style="counter-reset: etape 8;">
-          <li>Le <b>contrat d'adhésion / affiliation</b> s'affiche. Relisez-le (vous pouvez le télécharger ou l'imprimer), puis cliquez sur <b>Signer</b>.</li>
-        </ol>
-        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-51.jpg" alt="Aperçu du contrat d'adhésion / affiliation avec les boutons Annuler, Signer et Modifier détails">
-        <ol class="etapes" style="counter-reset: etape 9;">
-          <li>Saisissez le <b>code reçu par SMS</b> dans la fenêtre <b>Code signature contrat</b>, puis cliquez sur <b>Envoyer le code</b>.</li>
-        </ol>
-        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-52.jpg" alt="Fenêtre Code signature contrat">
-        <div class="astuce"><span class="amp">✉️</span><span>Le contrat signé est <b>automatiquement joint à l'e-mail de confirmation</b> de votre adhésion.</span></div>
-        <ol class="etapes" style="counter-reset: etape 10;">
-          <li>Une fois le contrat signé, <b>choisissez votre mode de paiement</b> : <b>Prélèvement</b>, puis suivez les indications à l'écran jusqu'à la fin de votre demande.</li>
-        </ol>
-        <img class="capture-img" onclick="agrandirImage(this)" src="images/capture-53.jpg" alt="Écran de choix du mode de paiement avec l'option Prélèvement">
-        <div class="astuce"><span class="amp">✅</span><span>Votre demande est ensuite <b>examinée par l'ASMT65</b> : l'adhésion est effective après validation par nos services.</span></div>
       </div>
 
       <!-- Connexion habituelle -->
@@ -662,6 +611,73 @@
       <div class="nav-fiche">
         <button class="btn-retour" onclick="allerAccueil()">← Accueil</button>
         <button class="btn-suivant" onclick="ouvrirFiche('tableau')">Le tableau de bord →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ NOUVELLE ADHÉSION ═════════ -->
+  <section class="ecran" id="fiche-adhesion">
+    <div class="fiche">
+      <h2>📝 Nouvelle adhésion</h2>
+      <div class="chemin">🌐 <a href="https://espaceadherent-asmt65.pulseprevention.com" target="_blank" rel="noopener">https://espaceadherent-asmt65.pulseprevention.com</a></div>
+      <div class="prerequis"><strong>Avant de commencer :</strong> ayez sous la main le <b>SIRET</b> et l'<b>effectif</b> de votre établissement, un <b>téléphone portable</b> (code de signature par SMS) et vos <b>coordonnées bancaires</b> pour le prélèvement. L'adhésion se fait <b>établissement par établissement</b>. <i>Cliquez sur une capture pour l'agrandir.</i></div>
+      <div class="pas-liste">
+        <div class="pas">
+          <div class="pas-txt">Ouvrez l'<b>e-mail d'invitation</b> reçu de Pulse / ASMT65 ou la page de connexion du portail, puis cliquez sur <b>C'est parti !</b> dans l'encart <b>Nouvelle adhésion ?</b></div>
+          <div class="pas-imgs"><img class="capture-img" onclick="agrandirImage(this)" src="images/capture-01.jpg" alt="Page de connexion avec le bouton C'est parti"></div>
+        </div>
+        <div class="pas">
+          <div class="pas-txt">Sur l'écran <b>Adhésion en ligne</b>, cliquez sur <b>Continuer</b>. Toute demande commence par une <b>simulation</b> de la cotisation.</div>
+          <div class="pas-imgs"><img class="capture-img" onclick="agrandirImage(this)" src="images/capture-38.jpg" alt="Écran Adhésion en ligne"></div>
+        </div>
+        <div class="pas">
+          <div class="pas-txt">Saisissez le <b>code postal</b> de votre établissement, choisissez votre commune dans la liste, puis <b>Continuer</b>.</div>
+          <div class="pas-imgs"><img class="capture-img" onclick="agrandirImage(this)" src="images/capture-39.jpg" alt="Écran code postal"></div>
+        </div>
+        <div class="pas">
+          <div class="pas-txt">Choisissez votre <b>profil</b> : pour un employeur du secteur privé, cliquez sur <b>Entreprise secteur Privé</b>, puis <b>Continuer</b>.<span class="petit">Les autres profils : Agence Intérim (salariés permanents uniquement), Indépendant, Entreprise secteur Public.</span></div>
+          <div class="pas-imgs"><img class="capture-img" onclick="agrandirImage(this)" src="images/capture-40.jpg" alt="Écran Quel est votre profil"></div>
+        </div>
+        <div class="pas">
+          <div class="pas-txt">Indiquez l'<b>effectif de votre établissement</b> (CDI et CDD, hors intérim, temps plein ou partiel), puis <b>Continuer</b>.</div>
+          <div class="pas-imgs"><img class="capture-img" onclick="agrandirImage(this)" src="images/capture-41.jpg" alt="Écran effectif"></div>
+        </div>
+        <div class="pas">
+          <div class="pas-txt">La <b>simulation</b> s'affiche : frais d'adhésion (facturés une seule fois) et cotisation annuelle (par salarié). Cliquez sur <b>Continuer vers le module adhésion</b>, puis <b>Continuer</b> sur l'écran d'accueil du module.<span class="petit">💾 À chaque étape, <b>Reprendre plus tard</b> enregistre votre avancement.</span></div>
+          <div class="pas-imgs"><img class="capture-img" onclick="agrandirImage(this)" src="images/capture-42.jpg" alt="Écran de simulation"><img class="capture-img" onclick="agrandirImage(this)" src="images/capture-43.jpg" alt="Accueil du module d'adhésion"></div>
+        </div>
+        <div class="pas">
+          <div class="pas-txt"><b>SIRET.</b> Saisissez le numéro <b>SIRET</b> de votre établissement (14 chiffres), puis <b>Continuer</b>.</div>
+          <div class="pas-imgs"><img class="capture-img" onclick="agrandirImage(this)" src="images/capture-44.jpg" alt="Écran SIRET"></div>
+        </div>
+        <div class="pas">
+          <div class="pas-txt"><b>Données administratives.</b> Les champs sont <b>pré-remplis</b> grâce au SIRET : vérifiez-les, choisissez la <b>forme juridique</b> et le <b>code NAF</b> s'ils sont vides, puis <b>Continuer</b>.</div>
+          <div class="pas-imgs"><img class="capture-img" onclick="agrandirImage(this)" src="images/capture-45.jpg" alt="Écran données administratives"></div>
+        </div>
+        <div class="pas">
+          <div class="pas-txt"><b>Adresse.</b> Vérifiez l'adresse, renseignez l'<b>e-mail</b> et le <b>téléphone</b> de l'établissement. Cochez les cases si l'adresse de <b>facturation</b> ou de <b>convocation</b> est différente, puis <b>Continuer</b>.</div>
+          <div class="pas-imgs"><img class="capture-img" onclick="agrandirImage(this)" src="images/capture-46.jpg" alt="Écran adresse"></div>
+        </div>
+        <div class="pas">
+          <div class="pas-txt"><b>Contacts.</b> Le contact <b>Interlocuteur portail</b> est <b>obligatoire</b> : renseignez nom, prénom, téléphone et e-mail, cliquez sur <b>Ajouter contact</b> (message « Contact créé avec succès »), puis <b>Continuer</b>.<span class="petit">📇 Choisissez le bon type de contact : il détermine qui reçoit quel message de l'ASMT65.</span></div>
+          <div class="pas-imgs"><img class="capture-img" onclick="agrandirImage(this)" src="images/capture-47.jpg" alt="Écran contacts"></div>
+        </div>
+        <div class="pas">
+          <div class="pas-txt"><b>Salariés.</b> Étape <b>facultative</b> : ajoutez vos salariés avec <b>Ajouter un salarié</b> (le numéro de sécurité sociale est demandé) ou cliquez directement sur <b>Continuer</b> pour les déclarer plus tard.<span class="petit">Agence d'intérim : créez uniquement vos salariés permanents.</span></div>
+          <div class="pas-imgs"><img class="capture-img" onclick="agrandirImage(this)" src="images/capture-48.jpg" alt="Écran salariés"><img class="capture-img" onclick="agrandirImage(this)" src="images/capture-49.jpg" alt="Formulaire d'ajout d'un salarié"></div>
+        </div>
+        <div class="pas">
+          <div class="pas-txt"><b>Signature du contrat.</b> Cliquez sur <b>Signer le contrat</b>, vérifiez vos nom, prénom, e-mail et <b>portable</b>, puis <b>Confirmer</b>. Relisez le contrat et cliquez sur <b>Signer</b> : un <b>code unique</b> vous est envoyé par <b>SMS</b>. Saisissez-le, puis cliquez sur <b>Envoyer le code</b>.<span class="petit">✉️ Le contrat signé est joint à l'e-mail de confirmation de votre adhésion.</span></div>
+          <div class="pas-imgs"><img class="capture-img" onclick="agrandirImage(this)" src="images/capture-50.jpg" alt="Fenêtre Signer le contrat"><img class="capture-img" onclick="agrandirImage(this)" src="images/capture-51.jpg" alt="Aperçu du contrat"><img class="capture-img" onclick="agrandirImage(this)" src="images/capture-52.jpg" alt="Fenêtre Code signature contrat"></div>
+        </div>
+        <div class="pas">
+          <div class="pas-txt"><b>Paiement.</b> Choisissez votre mode de paiement : <b>Prélèvement</b>, puis suivez les indications à l'écran jusqu'à la fin de votre demande.<span class="petit">✅ L'adhésion est effective après validation par l'ASMT65.</span></div>
+          <div class="pas-imgs"><img class="capture-img" onclick="agrandirImage(this)" src="images/capture-53.jpg" alt="Choix du mode de paiement"></div>
+        </div>
+      </div>
+      <div class="nav-fiche">
+        <button class="btn-retour" onclick="allerAccueil()">← Accueil</button>
+        <button class="btn-suivant" onclick="ouvrirFiche('connexion')">Se connecter →</button>
       </div>
     </div>
   </section>
