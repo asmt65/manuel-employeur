@@ -462,6 +462,76 @@
   @media (prefers-reduced-motion: reduce) {
     .ecran, .sous-panneau, .tuile { animation: none !important; transition: none !important; }
   }
+
+  /* ═════════ RECHERCHE ═════════ */
+  .champ-recherche { position: relative; }
+  .champ-recherche input {
+    width: 100%; font-family: inherit; font-size: 1rem; color: var(--texte);
+    padding: 13px 44px 13px 46px; border: 1px solid #b9c8d6; border-radius: 10px; background: var(--blanc);
+    -webkit-appearance: none; appearance: none;
+  }
+  .champ-recherche input::-webkit-search-cancel-button { display: none; }
+  .champ-recherche input:focus { outline: none; border-color: var(--bleu); box-shadow: 0 0 0 3px rgba(10,61,107,.15); }
+  .champ-recherche .loupe { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--texte-doux); pointer-events: none; }
+  .champ-recherche .effacer { position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+    width: 32px; height: 32px; border: 0; border-radius: 6px; background: none; color: var(--texte-doux); font-size: 1rem; cursor: pointer; display: none; }
+  .champ-recherche .effacer.visible { display: block; }
+  .champ-recherche .effacer:hover, .champ-recherche .effacer:focus-visible { background: var(--gris); outline: none; }
+
+  /* ═════════ ACCUEIL ═════════ */
+  .accueil-recherche { margin: 0 0 28px; }
+  .accueil-recherche label { display: block; font-weight: 700; color: var(--bleu); margin: 0 0 8px; font-size: .95rem; }
+  .bloc-titre { font-size: 1rem; font-weight: 700; color: var(--bleu); margin: 0 0 10px; }
+  .groupe-titre { font-size: .9rem; font-weight: 700; color: var(--texte-doux); margin: 26px 0 10px; }
+  .faq-accueil { background: var(--blanc); border-radius: var(--radius); padding: 20px 22px 14px; box-shadow: 0 1px 4px rgba(29,43,58,.08); margin-bottom: 6px; }
+  .faq-accueil .faq-item { border: 0; border-bottom: 1px solid #e3eaf0; border-radius: 0; margin: 0; box-shadow: none; }
+  .faq-accueil .faq-item:last-of-type { border-bottom: 0; }
+  .faq-accueil .faq-item summary { padding-left: 0; }
+  .faq-accueil .faq-rep { padding-left: 0; }
+  .lien-fleche { font-family: inherit; font-size: .9rem; font-weight: 600; color: var(--bleu-moyen); background: none; border: 0; padding: 8px 0 4px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+  .lien-fleche:hover, .lien-fleche:focus-visible { color: var(--bleu); outline: none; }
+  .accueil-adhesion { margin: 22px 0 0; font-size: .92rem; color: var(--texte-doux); }
+  .res-titre { font-size: .9rem; font-weight: 700; color: var(--texte-doux); margin: 4px 0 10px; }
+  #rechAccueilResultats .tuiles { margin-bottom: 22px; }
+
+  /* ═════════ FAQ ═════════ */
+  .faq-outils { display: grid; grid-template-columns: 1fr 230px; gap: 10px; margin: 14px 0 6px; }
+  .faq-outils select { font-family: inherit; font-size: .95rem; color: var(--texte); padding: 12px 12px; border: 1px solid #b9c8d6; border-radius: 10px; background: var(--blanc); }
+  .faq-outils select:focus { outline: none; border-color: var(--bleu); box-shadow: 0 0 0 3px rgba(10,61,107,.15); }
+  @media (max-width: 600px) { .faq-outils { grid-template-columns: 1fr; } }
+  .faq-intro { color: var(--texte-doux); font-size: .93rem; margin: 6px 0 0; }
+  .faq-compte { font-size: .85rem; color: var(--texte-doux); margin: 8px 0 6px; min-height: 1.2em; }
+  .faq-groupe { color: var(--bleu); font-size: 1.02rem; margin: 26px 0 4px; padding-bottom: 6px; border-bottom: 2px solid var(--bleu-clair); }
+  .faq-groupe:first-child { margin-top: 8px; }
+  .faq-item { border-bottom: 1px solid #e3eaf0; }
+  .faq-item summary { list-style: none; cursor: pointer; padding: 14px 36px 14px 2px; position: relative;
+    font-weight: 600; font-size: .95rem; line-height: 1.45; color: var(--texte); }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: ''; position: absolute; right: 10px; top: 50%; width: 8px; height: 8px;
+    border-right: 2px solid var(--bleu-moyen); border-bottom: 2px solid var(--bleu-moyen); transform: translateY(-70%) rotate(45deg); transition: transform .15s; }
+  .faq-item[open] summary::after { transform: translateY(-30%) rotate(-135deg); }
+  .faq-item summary:hover { color: var(--bleu); }
+  .faq-item[open] summary { color: var(--bleu); }
+  .faq-item summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+  .faq-th { display: block; font-size: .78rem; font-weight: 600; color: var(--texte-doux); margin-bottom: 2px; }
+  .faq-rep { padding: 0 2px 16px; font-size: .93rem; line-height: 1.65; color: var(--texte); }
+  .faq-rep b { color: var(--bleu); }
+  .faq-rep a { color: var(--bleu-moyen); }
+  .faq-voir { display: inline-block; margin-top: 8px; font-family: inherit; font-size: .88rem; font-weight: 600;
+    color: var(--bleu-moyen); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+  .faq-voir:hover, .faq-voir:focus-visible { color: var(--bleu); outline: none; }
+  .faq-vide { padding: 22px 4px; font-size: .93rem; line-height: 1.6; color: var(--texte-doux); }
+  .faq-vide b { color: var(--texte); }
+  mark.faq-hl { background: #fff0b3; color: inherit; border-radius: 2px; padding: 0 1px; }
+  .faq-aide { margin-top: 26px; background: var(--gris); border-radius: 10px; padding: 14px 18px; font-size: .9rem; line-height: 1.6; }
+  .faq-aide strong { color: var(--bleu); }
+  .faq-contexte { margin-top: 30px; padding-top: 20px; border-top: 1px solid #e3eaf0; }
+  .faq-contexte h3 { color: var(--bleu); font-size: 1.02rem; margin-bottom: 4px; }
+
+  /* Retour à l'accueil en haut de chaque fiche (le bandeau ne suit pas dans l'iframe du site) */
+  .retour-haut { font-family: inherit; font-size: .88rem; font-weight: 600; color: var(--bleu-moyen); background: none; border: 0;
+    padding: 0; margin: 0 0 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+  .retour-haut:hover, .retour-haut:focus-visible { color: var(--bleu); text-decoration: underline; text-underline-offset: 3px; outline: none; }
 </style>
 </head>
 <body>
@@ -479,8 +549,8 @@
   <!-- ═════════ ACCUEIL ═════════ -->
   <section class="ecran actif" id="accueil">
     <div class="intro">
-      <h1>Que voulez-vous faire ?</h1>
-      <p>Cliquez sur une action — chaque fiche vous guide pas à pas.</p>
+      <h1>Guide du portail adhérent</h1>
+      <p>Cherchez une réponse ou choisissez une action : chaque fiche vous guide pas à pas.</p>
     </div>
     <!-- DEBUT BANDEAU NOUVEAU PORTAIL — à supprimer (jusqu'à FIN) quand la bascule est terminée -->
     <div class="bandeau-nouveau" role="note">
@@ -489,11 +559,23 @@
       <button onclick="ouvrirPremierAcces()">Voir comment faire →</button>
     </div>
     <!-- FIN BANDEAU NOUVEAU PORTAIL -->
-    <div class="tuiles">
-      <button class="tuile" onclick="ouvrirFiche('adhesion')">
-        <span class="ico">📝</span>
-        <span><span class="lbl">Nouvelle adhésion</span><br><span class="desc">Votre entreprise n'est pas encore adhérente&nbsp;?</span></span>
-      </button>
+    <div class="accueil-recherche champ-recherche-bloc">
+      <label for="rechAccueil">Une question&nbsp;?</label>
+      <div class="champ-recherche" role="search">
+        <svg class="loupe" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input type="search" id="rechAccueil" placeholder="Ex. : DPAE, mot de passe, facture, cabinet" autocomplete="off">
+        <button type="button" class="effacer" id="rechAccueilEffacer" aria-label="Effacer la recherche" onclick="rechAccueilEffacer()">✕</button>
+      </div>
+    </div>
+    <div id="rechAccueilResultats" aria-live="polite"></div>
+    <div id="groupesTuiles">
+      <div class="faq-accueil">
+        <h2 class="bloc-titre">Les questions les plus posées</h2>
+        <div id="faqAccueilListe"></div>
+        <button type="button" class="lien-fleche" onclick="ouvrirFiche('faq')">Voir toutes les questions (<span id="faqNbTotal"></span>) →</button>
+      </div>
+      <h2 class="groupe-titre">Pour commencer</h2>
+      <div class="tuiles">
       <button class="tuile nouveau" onclick="ouvrirFiche('connexion')">
         <span class="badge-nouveau">NOUVEAU</span>
         <span class="ico">🔐</span>
@@ -503,6 +585,13 @@
         <span class="ico">📊</span>
         <span><span class="lbl">Le tableau de bord</span><br><span class="desc">Comprendre votre page d'accueil</span></span>
       </button>
+      <button class="tuile" onclick="ouvrirFiche('tiers')">
+        <span class="ico">🤝</span>
+        <span><span class="lbl">Donner accès à un tiers</span><br><span class="desc">Expert-comptable, cabinet RH, gestionnaire…</span></span>
+      </button>
+      </div>
+      <h2 class="groupe-titre">Au quotidien</h2>
+      <div class="tuiles">
       <button class="tuile" onclick="ouvrirFiche('salaries')">
         <span class="ico">👥</span>
         <span><span class="lbl">Gérer les salariés</span><br><span class="desc">Ajouter, modifier, changer de poste, départ, réactiver</span></span>
@@ -515,23 +604,25 @@
         <span class="ico">📁</span>
         <span><span class="lbl">Documents &amp; factures</span><br><span class="desc">Retrouver et télécharger vos documents</span></span>
       </button>
+      </div>
+      <h2 class="groupe-titre">Votre entreprise</h2>
+      <div class="tuiles">
+      <button class="tuile" onclick="ouvrirFiche('etablissement')">
+        <span class="ico">🏢</span>
+        <span><span class="lbl">Mon établissement</span><br><span class="desc">Informations, contacts</span></span>
+      </button>
       <button class="tuile" onclick="ouvrirFiche('declaration')">
         <span class="ico">📋</span>
         <span><span class="lbl">Déclarer les effectifs</span><br><span class="desc">Votre déclaration annuelle</span></span>
-      </button>
-      <button class="tuile" onclick="ouvrirFiche('tiers')">
-        <span class="ico">🤝</span>
-        <span><span class="lbl">Donner accès à un tiers</span><br><span class="desc">Expert-comptable, cabinet RH, gestionnaire…</span></span>
       </button>
       <button class="tuile" onclick="ouvrirFiche('amt')">
         <span class="ico">🛡️</span>
         <span><span class="lbl">Prévention des risques</span><br><span class="desc">Portail MAP, DUERP</span></span>
       </button>
-      <button class="tuile" onclick="ouvrirFiche('etablissement')">
-        <span class="ico">🏢</span>
-        <span><span class="lbl">Mon établissement</span><br><span class="desc">Informations, contacts</span></span>
-      </button>
+      </div>
+      <p class="accueil-adhesion">Votre entreprise n’est pas encore adhérente&nbsp;? <button type="button" class="lien-fleche" onclick="ouvrirFiche('adhesion')">Voir comment adhérer →</button></p>
     </div>
+
   </section>
 
   <!-- ═════════ 1. CONNEXION ═════════ -->
@@ -1049,6 +1140,30 @@
     </div>
   </section>
 
+
+  <!-- ═════════ FAQ — QUESTIONS DES WEBINAIRES ═════════ -->
+  <section class="ecran" id="fiche-faq">
+    <div class="fiche">
+      <h2>💬 Questions fréquentes</h2>
+      <p class="faq-intro">Les questions posées lors de nos webinaires sur le portail adhérent.</p>
+      <div class="faq-outils">
+        <div class="champ-recherche" role="search">
+          <svg class="loupe" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <input type="search" id="faqRecherche" placeholder="Rechercher une question" aria-label="Rechercher une question" autocomplete="off">
+          <button type="button" class="effacer" id="faqEffacer" aria-label="Effacer la recherche" onclick="faqEffacer()">✕</button>
+        </div>
+        <select id="faqTheme" aria-label="Filtrer par thème"></select>
+      </div>
+      <p class="faq-compte" id="faqCompte" aria-live="polite"></p>
+      <div id="faqListe"></div>
+      <div class="faq-aide"><strong>Vous ne trouvez pas la réponse&nbsp;?</strong><br>
+        Portail ou connexion : <b>05 62 93 81 81, choix 0</b><br>
+        Suivi de santé : votre assistante médicale<br>
+        Autre demande : <b>Créer une demande</b> dans le portail</div>
+      <div class="nav-fiche"><button class="btn-retour" onclick="allerAccueil()">← Accueil</button></div>
+    </div>
+  </section>
+
 </main>
 
 <footer>
@@ -1136,6 +1251,369 @@
     btn.closest('.fiche').querySelectorAll('.sous-panneau').forEach(p => p.classList.remove('actif'));
     document.getElementById(id).classList.add('actif');
   }
+
+  /* ══════════════════════════════════════════════════════════════
+     BASE FAQ — pour ajouter une question : copier un bloc { … },
+     le coller dans la bonne liste et adapter. Champs :
+       th    = thème (voir THEMES)          top  = true → onglet « Les plus posées »
+       q / r = question / réponse (HTML ok) fiche = fiche du manuel liée (ou null)
+       mots  = mots-clés cachés pour la recherche
+     ══════════════════════════════════════════════════════════════ */
+  const THEMES = [
+    { id: 'acces',      ico: '🔐', lbl: 'Connexion' },
+    { id: 'tiers',      ico: '🤝', lbl: 'Accès & cabinets' },
+    { id: 'etab',       ico: '🏢', lbl: 'Établissement & tableau de bord' },
+    { id: 'salaries',   ico: '👥', lbl: 'Salariés' },
+    { id: 'postes',     ico: '🧾', lbl: 'Postes & risques' },
+    { id: 'visites',    ico: '🩺', lbl: 'Visites médicales' },
+    { id: 'docs',       ico: '📁', lbl: 'Documents & factures' },
+    { id: 'prevention', ico: '🛡️', lbl: 'Prévention & contact' }
+  ];
+  const FICHES = {
+    connexion: 'Se connecter', adhesion: 'Nouvelle adhésion', tableau: 'Le tableau de bord',
+    salaries: 'Gérer les salariés', visite: 'Demander une visite médicale',
+    documents: 'Documents & factures', declaration: 'Déclarer les effectifs',
+    tiers: 'Donner accès à un tiers', amt: 'Prévention des risques', etablissement: 'Mon établissement'
+  };
+  const TEL = '05 62 93 81 81';
+
+  const FAQ = [
+    /* ───── CONNEXION ───── */
+    { th:'acces', top:true, fiche:'connexion',
+      q:'Comment accéder à mon espace employeur ?',
+      r:'Passez par le site <b>www.asmt65.fr</b>, rubrique <b>Mon compte → Espace employeur</b>, et mettez cette page en <b>favori</b>. Évitez de mettre en favori le lien direct du portail : il peut changer, alors que la page du site reste toujours à jour.',
+      mots:'adresse lien favori site internet url' },
+    { th:'acces', top:true, fiche:'connexion',
+      q:'J’avais un accès à l’ancien portail. Comment accéder au nouveau ?',
+      r:'Ne saisissez <b>pas</b> vos anciens codes dans les champs de connexion. Cliquez sur <b>Créer votre nouvel accès</b>, saisissez vos <b>anciens identifiant et mot de passe</b> (compte admin), puis cliquez sur <b>Créer un compte</b>. Vous recevez un mail pour créer vos nouveaux identifiants.',
+      mots:'ancien portail premier accès nouvel accès migration créer compte' },
+    { th:'acces', fiche:'connexion',
+      q:'Mon identifiant, c’est mon numéro d’adhérent ou mon adresse mail ?',
+      r:'Cela dépend de ce que vous aviez saisi sur l’ancien portail : certains avaient mis leur adresse mail, d’autres leur numéro d’adhérent ou d’entreprise. Si vous ne le retrouvez pas, appelez le <b>' + '05 62 93 81 81, choix 0</b> : on vous recrée un accès.',
+      mots:'identifiant login numéro adhérent siret mail' },
+    { th:'acces', fiche:'connexion',
+      q:'J’ai oublié mon mot de passe.',
+      r:'Sur la page de connexion, cliquez sur <b>Mot de passe oublié&nbsp;?</b> : vous pourrez recevoir de nouveaux accès. Toujours bloqué&nbsp;? Appelez le <b>05 62 93 81 81, choix 0</b>.',
+      mots:'mdp réinitialiser perdu' },
+    { th:'acces', fiche:'connexion',
+      q:'Pourquoi dois-je saisir un code à chaque connexion ?',
+      r:'Le portail contient des <b>données de santé</b> : la <b>double authentification</b> renforce leur sécurité. Un code vous est envoyé <b>par mail</b> à chaque connexion : il suffit de le recopier.',
+      mots:'code sécurité double authentification mail rgpd' },
+    { th:'acces', top:true, fiche:'connexion',
+      q:'Je n’arrive pas à me connecter. Qui appeler ?',
+      r:'Appelez le <b>05 62 93 81 81, choix 0</b> : une équipe est dédiée à la connexion. Elle peut vous aider, voire créer vos identifiants et mots de passe à votre place. Ne restez pas bloqué.',
+      mots:'bloqué problème connexion téléphone aide assistance' },
+    { th:'acces', fiche:'adhesion',
+      q:'Je suis un nouvel adhérent. Comment faire ?',
+      r:'Un parcours de <b>nouvelle adhésion</b> est disponible sur la page de connexion (bloc « Nouvelle adhésion »). Les cabinets sociaux et comptables peuvent l’utiliser pour adhérer à la place de leurs clients.',
+      mots:'adhésion inscription simulation cotisation' },
+    { th:'acces', fiche:'tableau',
+      q:'Je gère plusieurs entreprises. Comment passer de l’une à l’autre ?',
+      r:'Cliquez sur le <b>nom de l’entreprise</b> dans le bandeau du haut : un menu déroulant liste toutes les entreprises ou tous les clients que vous suivez. Les salariés et les factures affichés sont ceux de l’entreprise sélectionnée.',
+      mots:'portefeuille filiales cabinet basculer changer entreprise multi' },
+
+    /* ───── ACCÈS & CABINETS ───── */
+    { th:'tiers', top:true, fiche:'tiers',
+      q:'Comment donner accès au portail à un cabinet ou à un collaborateur ?',
+      r:'Dans le bandeau du haut, déroulez le menu à côté de votre identifiant et choisissez <b>Gestion des utilisateurs</b>. Cliquez sur <b>Créer un compte</b> : nom, prénom, mail, rôle, entreprise concernée. La personne reçoit automatiquement ses identifiants. Le <b>rôle</b> définit ce qu’elle voit et si elle peut modifier. Chacun ayant son propre accès, chaque modification est tracée au nom de la personne.',
+      mots:'délégation utilisateur collaborateur rh expert-comptable créer compte droits rôle' },
+    { th:'tiers', top:true, fiche:'tiers',
+      q:'Je suis un cabinet d’expertise ou un cabinet social. Comment accéder à mes clients ?',
+      r:'Deux possibilités :<br>• <b>votre client crée un utilisateur pour vous</b> dans « Gestion des utilisateurs » (c’est le plus simple) ;<br>• vous demandez à l’ASMT 65 de <b>rattacher vos clients</b> : il faut alors un <b>mail de chaque employeur</b> attestant qu’il vous délègue la gestion de son espace.<br>Vous vous connectez ensuite avec vos propres identifiants et retrouvez toutes vos entreprises dans le menu déroulant du bandeau du haut.',
+      mots:'cabinet comptable expert-comptable social client délégation espace tiers' },
+    { th:'tiers', fiche:'tiers',
+      q:'Dois-je créer un « espace cabinet » ou un espace tiers déclarant ?',
+      r:'Non. Un accès tiers n’est pas lié à un espace mais à <b>une adresse mail</b>. L’employeur crée l’accès sur l’adresse de son choix : la vôtre, ou une adresse générique du cabinet (type contact@…) si c’est elle qui gère toutes les entreprises. L’important est que l’on sache qui la gère.',
+      mots:'adresse générique mail cabinet tiers déclarant' },
+    { th:'tiers', fiche:'tiers',
+      q:'Pourquoi l’ASMT 65 demande-t-elle un écrit de l’employeur ?',
+      r:'La déclaration relève de la <b>responsabilité de l’employeur</b>, et le portail contient des données sensibles. L’employeur peut ouvrir lui-même l’accès. S’il ne peut pas, il nous envoie un <b>mail</b> confirmant qu’il délègue l’accès : nous le joignons à son dossier et pouvons ouvrir l’accès à sa place.',
+      mots:'preuve justificatif trace écrite mail délégation' },
+
+    /* ───── ÉTABLISSEMENT & TABLEAU DE BORD ───── */
+    { th:'etab', fiche:'etablissement',
+      q:'Comment modifier les informations de mon établissement ?',
+      r:'Cliquez sur <b>Modifier</b>, changez ce qu’il faut, puis cliquez sur <b>Enregistrer</b> : sans cela, rien n’est pris en compte. Les champs en <b>violet</b> ne sont pas modifiables (par exemple le SIRET ou le code NAF) : en cas de changement d’activité, contactez le service.',
+      mots:'adresse siret naf modifier établissement champs violet' },
+    { th:'etab', fiche:'etablissement',
+      q:'Pourquoi tenir mes contacts à jour ?',
+      r:'Les <b>avis, convocations et documents</b> sont envoyés aux contacts renseignés dans <b>Établissement → Contacts</b>, selon leur rôle (interlocuteur portail, convocation, facturation…). Si vous changez de gestionnaire, mettez la fiche à jour, sinon la bonne personne ne recevra rien. Vous pouvez avoir <b>plusieurs contacts par rôle</b>.',
+      mots:'contact interlocuteur convocation portail facturation ajouter modifier remplaçant absence' },
+    { th:'etab', fiche:'etablissement',
+      q:'Comment retrouver mon médecin, mon assistante médicale ou mon préventeur ?',
+      r:'Dans <b>Établissement</b>, passez sur l’onglet <b>ASMT 65</b> : vous y voyez les professionnels qui suivent votre entreprise (médecin, infirmier, assistante médicale, préventeur) avec leurs coordonnées. Un clic sur l’adresse mail ouvre directement votre messagerie.',
+      mots:'interlocuteur équipe suivi coordonnées téléphone assistante' },
+    { th:'etab', fiche:'tableau',
+      q:'Puis-je personnaliser mon tableau de bord ?',
+      r:'Oui. Avec la <b>roue crantée</b>, choisissez les blocs à afficher en premier : salariés par âge, par catégorie ou par genre, statistiques par risque, salariés actifs ou inactifs, type de suivi…',
+      mots:'dashboard roue crantée personnaliser statistiques blocs' },
+    { th:'etab', fiche:'tableau',
+      q:'Que signifie le bandeau rouge « Pensez à nous transmettre votre DU » ?',
+      r:'C’est un rappel : chaque employeur doit transmettre son <b>document unique (DUERP)</b> à l’ASMT 65. Vous pouvez le déposer directement dans le portail (menu <b>Prévention → DUERP</b>).',
+      mots:'bandeau rouge duerp document unique rappel' },
+    { th:'etab', fiche:'etablissement',
+      q:'Mes modifications ne sont pas prises en compte.',
+      r:'Dans tout le portail (établissement, contacts, salariés), il faut <b>cliquer sur Enregistrer</b> après chaque modification. Si vous changez de page sans enregistrer, rien n’est pris en compte.',
+      mots:'enregistrer sauvegarder valider modification perdue' },
+
+    /* ───── SALARIÉS ───── */
+    { th:'salaries', fiche:'salaries',
+      q:'Quels salariés dois-je enregistrer ?',
+      r:'<b>Tous</b>, y compris les CDD et les petits contrats.',
+      mots:'cdd saisonniers intérim effectif contrat court' },
+    { th:'salaries', top:true, fiche:'salaries',
+      q:'Comment ajouter un nouveau salarié ?',
+      r:'Soit il arrive tout seul via la <b>DPAE</b>, soit vous l’ajoutez à la main avec <b>Ajouter un salarié</b>. Commencez par saisir son <b>numéro de sécurité sociale</b> (c’est l’identifiant), puis remplissez les champs marqués d’une <b>étoile rouge</b> : le portail refuse d’enregistrer s’il en manque. Un numéro de sécu manquant n’est pas bloquant, mais il faudra l’ajouter plus tard. Saisissez ensuite le <b>poste</b> et le <b>risque</b>.',
+      mots:'ajouter créer salarié nouveau embauche numéro sécu inss champs obligatoires' },
+    { th:'salaries', top:true, fiche:'salaries',
+      q:'Ma DPAE n’est pas remontée dans le portail.',
+      r:'Les DPAE sont transmises à l’ASMT 65 <b>deux fois par semaine</b>. Un problème de codage entre l’Urssaf et l’ASMT 65 peut aussi empêcher certains salariés de remonter : il est en cours de traitement. <b>Ne vous fiez pas uniquement à la DPAE</b> : après chaque embauche, vérifiez dans le portail et, si le salarié n’y est pas, <b>ajoutez-le à la main</b> sans attendre.',
+      mots:'dpae urssaf déclaration préalable embauche remonte absent manquant' },
+    { th:'salaries', fiche:'salaries',
+      q:'Dois-je mettre à jour moi-même les statuts actif / inactif ?',
+      r:'Non, le statut change <b>automatiquement</b> : un salarié passe en <b>inactif</b> dès que vous saisissez une date de fin de contrat, et redevient <b>actif</b> quand vous créez un nouveau contrat.',
+      mots:'statut actif inactif date fin contrat' },
+    { th:'salaries', fiche:'salaries',
+      q:'Un salarié revient chez moi (saisonnier, apprenti, CDD successifs). Comment le retrouver ?',
+      r:'Si son contrat précédent est terminé, il est dans les inactifs : cliquez sur <b>Afficher les inactifs</b>, puis sur le <b>crayon</b> pour rouvrir son contrat. Vous n’avez pas à tout ressaisir et vous évitez les doublons.',
+      mots:'réactiver inactif retour saisonnier apprenti cdd successif doublon rouvrir contrat' },
+    { th:'salaries', fiche:'salaries',
+      q:'Comment rechercher un salarié ou exporter la liste ?',
+      r:'<b>Afficher les filtres</b> permet de chercher par risque, période d’embauche, âge, nom ou prénom (surtout utile pour les inactifs), poste ou catégorie de suivi, y compris les <b>postes à renseigner</b>. Le bouton <b>Exporter</b> sort la liste au <b>format Excel</b> : actifs, inactifs, ou contrats passés et actifs.',
+      mots:'filtre recherche export excel liste tableau extraire' },
+    { th:'salaries', fiche:'declaration',
+      q:'À quoi sert le menu « Déclaration » ?',
+      r:'Il affiche le <b>récapitulatif de vos salariés par type de suivi</b>. Servez-vous-en pour vérifier que vous retrouvez le bon nombre de salariés déclarés.',
+      mots:'déclaration effectifs cotisation annuelle récapitulatif catégorie' },
+
+    /* ───── POSTES & RISQUES ───── */
+    { th:'postes', top:true, fiche:'salaries',
+      q:'Que signifie « poste à renseigner » et pourquoi dois-je le corriger ?',
+      r:'La DPAE ne contient pas de poste : les salariés arrivent donc avec la mention « poste à renseigner ». Sans poste ni risque, l’ASMT 65 ne peut pas assurer un suivi adapté, et la visite se ferait sur un poste non défini : la <b>fiche d’aptitude ne serait pas valable pour vous</b>, ce qui engage votre responsabilité d’employeur. Cliquez sur le <b>crayon</b> et saisissez le poste réel, même pour un salarié suivi depuis des années.',
+      mots:'poste à renseigner à définir dpae fiche aptitude responsabilité' },
+    { th:'postes', fiche:'salaries',
+      q:'Comment renseigner un poste ? Qu’est-ce qu’un code PCS ?',
+      r:'<b>Poste déjà connu</b> : cliquez dans la barre de saisie et choisissez-le dans la liste (postes actifs et inactifs de votre entreprise).<br><b>Nouveau poste</b> : cliquez sur le <b>+</b>. Le <b>code PCS</b> est un code d’emploi de la nomenclature de l’<b>Insee</b>, pas l’intitulé de votre contrat. Cherchez-le par mot-clé et prenez celui qui se rapproche le plus ; s’il n’est pas exact, ce n’est pas grave. Dans <b>Intitulé du poste</b>, mettez ensuite le poste tel qu’il figure sur le contrat.',
+      mots:'pcs insee code emploi profession nomenclature nouveau poste intitulé' },
+    { th:'postes', fiche:'salaries',
+      q:'Pourquoi dois-je saisir un risque ?',
+      r:'Le risque est <b>obligatoire</b> pour enregistrer le poste : il détermine le type de suivi de santé. Choisissez dans le menu déroulant celui auquel le salarié est exposé ; la date de début est celle du début du contrat.',
+      mots:'risque obligatoire suivi catégorie exposition' },
+    { th:'postes', fiche:'salaries',
+      q:'Mon salarié n’est exposé à aucun risque particulier. Que choisir ?',
+      r:'Dans la liste des risques, choisissez <b>« Aucun risque déclaré par l’employeur »</b>. Vous trouverez aussi à la fin de la liste des <b>catégories professionnelles particulières</b> (par exemple « agent contractuel territorial ») : ce ne sont pas des risques, mais des catégories de suivi.',
+      mots:'aucun risque déclaré agent contractuel territorial catégorie' },
+    { th:'postes', fiche:'salaries',
+      q:'Puis-je modifier la date de début d’un risque ?',
+      r:'Oui, la date est proposée par défaut (date du jour) mais elle se modifie, <b>tant qu’aucune visite n’a eu lieu sur cette période</b>. Si une visite a déjà été faite, on ne peut pas remonter avant sa date : une visite est réalisée sur un poste déclaré.',
+      mots:'date début risque modifier rétroactive visite' },
+    { th:'postes', fiche:'salaries',
+      q:'La date d’embauche et la date d’entrée dans le poste peuvent-elles être identiques ?',
+      r:'Oui.',
+      mots:'date embauche entrée poste identique' },
+    { th:'postes', fiche:'salaries',
+      q:'Comment les risques ont-ils été définis pour les salariés déjà présents au lancement du nouveau portail ?',
+      r:'Les données de l’ancien portail ont été <b>reprises à l’identique</b>. Les modifications éventuelles sont à faire de votre côté.',
+      mots:'reprise ancien portail migration données risques existants' },
+
+    /* ───── VISITES MÉDICALES ───── */
+    { th:'visites', top:true, fiche:'visite',
+      q:'Comment demander une visite médicale ?',
+      r:'Dans la rubrique <b>Salariés</b>, cliquez sur <b>Demander une visite</b> en face du salarié, choisissez le <b>type de visite</b> et ajoutez un court descriptif. L’ASMT 65 reçoit la demande instantanément et vous en gardez la trace.',
+      mots:'demande visite médicale rendez-vous planifier convocation' },
+    { th:'visites', fiche:'visite',
+      q:'Pourquoi passer par le portail plutôt que par mail ou téléphone ? La DPAE déclenche-t-elle une visite ?',
+      r:'Les demandes faites par le portail sont <b>tracées</b> : vous avez la preuve de votre demande, ce qui compte en cas de contentieux avec un salarié. La DPAE, elle, <b>ne déclenche pas de visite</b> : l’ASMT 65 peut convoquer les salariés qu’elle reçoit, mais votre responsabilité d’employeur reste engagée. Être à l’initiative de la demande est ce qui vous protège le mieux.',
+      mots:'traçabilité preuve dpae contentieux responsabilité mail téléphone' },
+    { th:'visites', fiche:'visite',
+      q:'Les demandes de visite de reprise sont-elles traitées dans les délais ?',
+      r:'Oui. Toutes les demandes arrivent automatiquement dans l’outil de l’assistante médicale, et une autre assistante prend le relais en cas d’absence. Un mail adressé à une assistante absente, lui, n’est pas réorienté.',
+      mots:'reprise délai assistante absence arrêt de travail' },
+    { th:'visites', fiche:'visite',
+      q:'Je dois annuler ou reprogrammer une visite. Comment faire ?',
+      r:'Depuis le portail, retournez sur le salarié, faites une <b>demande de visite</b> et indiquez dans le commentaire que la visite du jj/mm est à annuler et à replacer. Vous pouvez aussi écrire directement à votre assistante médicale. La reprogrammation en ligne n’est pas disponible pour l’instant.',
+      mots:'annuler reprogrammer décaler reporter changer date rendez-vous' },
+    { th:'visites', fiche:'visite',
+      q:'Comment voir la date d’une visite ou les visites réalisées ?',
+      r:'Dans la <b>fiche du salarié</b> (icône œil) puis <b>Visite médicale</b> : date, médecin, lieu, visites honorées et absences, avec tout l’historique. Le menu <b>Planification</b> affiche tous les rendez-vous de vos salariés, filtrables par date, absence ou réalisation.',
+      mots:'historique date visite honorée absence planification médecin lieu' },
+    { th:'visites', fiche:'visite',
+      q:'Recevrai-je la convocation par mail si je demande la visite par le portail ?',
+      r:'Oui : les convocations sont toujours envoyées <b>par mail</b> et déposées sur le portail. L’envoi par mail s’arrêtera plus tard, uniquement quand un système d’alerte fiable préviendra de la mise à disposition d’un document.',
+      mots:'convocation mail alerte notification' },
+
+    /* ───── DOCUMENTS & FACTURES ───── */
+    { th:'docs', fiche:'documents',
+      q:'Où trouver les convocations et les avis d’aptitude ?',
+      r:'Dans <b>Documents → Documents salariés</b>. Les nouveaux documents apparaissent en <b>gras</b>, avec une pastille indiquant le nombre de documents non consultés. Vous pouvez les imprimer ou les télécharger. C’est aussi ici que vous pouvez nous transmettre un document concernant un salarié, par exemple un <b>arrêt de travail</b> lié à une convocation.',
+      mots:'convocation avis aptitude documents salariés télécharger imprimer arrêt de travail envoyer' },
+    { th:'docs', fiche:'documents',
+      q:'À quoi servent les « Documents adhérent » ? Comment vous envoyer un document ?',
+      r:'Vous y trouvez les <b>convocations collectives</b> et les <b>fiches d’entreprise</b>, et vous pouvez nous transmettre votre <b>document unique</b> en PDF. Pour nous faire parvenir un document, utilisez le bouton <b>Ajouter un document</b> : choisissez la classe de document, ajoutez une description et envoyez. C’est le moyen le plus sûr : il est <b>tracé</b>.',
+      mots:'document adhérent fiche entreprise envoyer transmettre ajouter pdf' },
+    { th:'docs', top:true, fiche:'documents',
+      q:'Que voit-on dans la rubrique facturation ?',
+      r:'Vos <b>factures et avoirs</b> avec leur montant, que vous pouvez télécharger. Le portail <b>ne permet pas pour l’instant de suivre leur règlement</b> (ni le solde dû) : n’en tenez pas compte et, au moindre doute, contactez le <b>service comptabilité</b>.',
+      mots:'facture avoir payée impayée règlement statut solde comptabilité grand livre' },
+
+    /* ───── PRÉVENTION & CONTACT ───── */
+    { th:'prevention', fiche:'amt',
+      q:'Comment transmettre mon document unique (DUERP) ?',
+      r:'Dans <b>Prévention → DUERP</b>, utilisez le bouton en haut à droite : indiquez la <b>date de mise à jour ou de réalisation</b> du document et envoyez-le au format PDF ou Excel.',
+      mots:'duerp document unique du déposer transmettre envoyer' },
+    { th:'prevention', fiche:'amt',
+      q:'Qu’est-ce que MAP (Mon Approche Prévention) ?',
+      r:'C’est l’<b>outil interactif d’évaluation des risques</b> de votre entreprise : il sert aux fiches d’entreprise et à l’élaboration de votre document unique. Vous pouvez travailler seul ou accompagné d’un chargé de prévention. Pour toute question, contactez le <b>service Prévention</b>. <a href="https://www.youtube.com/watch?v=LXE52zV-uRU" target="_blank" rel="noopener">Voir la vidéo de présentation ↗</a>',
+      mots:'map approche prévention évaluation risques fiche entreprise document unique' },
+    { th:'prevention', top:true, fiche:'amt',
+      q:'Comment faire une demande autre qu’une visite médicale ?',
+      r:'Utilisez <b>Créer une demande</b> (ou <b>Contactez-nous</b>, qui ouvre le même formulaire) pour la facturation, les documents ou tout autre sujet : un sujet, un message, éventuellement un fichier. Vous retrouvez l’historique de vos demandes dans l’onglet <b>Demandes</b>. Les visites médicales ne se demandent <b>jamais</b> par là, mais depuis la fiche du salarié.',
+      mots:'demande contactez-nous formulaire message historique facturation' },
+    { th:'prevention', top:true, fiche:'connexion',
+      q:'Qui contacter en cas de difficulté ?',
+      r:'Pour le <b>suivi de santé</b> : votre assistante médicale. Pour le <b>portail ou un blocage de connexion</b> : <b>05 62 93 81 81, choix 0</b>. Pour une question de <b>facture</b> : le service comptabilité.',
+      mots:'contact téléphone aide assistance difficulté problème' }
+  ];
+
+  /* ═════════ FAQ ═════════ */
+  const faqNorm = t => (t || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  const faqEsc = t => t.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  FAQ.forEach(f => { f._idx = faqNorm(f.q + ' ' + f.r.replace(/<[^>]+>/g, ' ') + ' ' + (f.mots || '')); });
+  const jetonsDe = v => faqNorm(v).split(/\s+/).filter(j => j.length > 1);
+  const filtrer = jetons => FAQ.filter(f => jetons.every(j => f._idx.indexOf(j) !== -1));
+
+  function surligner(q, jetons) {
+    const qn = faqNorm(q);
+    if (!jetons.length || qn.length !== q.length) return faqEsc(q);
+    const z = [];
+    jetons.forEach(j => { let i = qn.indexOf(j); while (i !== -1) { z.push([i, i + j.length]); i = qn.indexOf(j, i + j.length); } });
+    if (!z.length) return faqEsc(q);
+    z.sort((a, b) => a[0] - b[0]);
+    const f = [z[0].slice()];
+    z.slice(1).forEach(x => { const d = f[f.length - 1]; if (x[0] <= d[1]) d[1] = Math.max(d[1], x[1]); else f.push(x.slice()); });
+    let out = '', p = 0;
+    f.forEach(x => { out += faqEsc(q.slice(p, x[0])) + '<mark class="faq-hl">' + faqEsc(q.slice(x[0], x[1])) + '</mark>'; p = x[1]; });
+    return out + faqEsc(q.slice(p));
+  }
+  /* avecTheme : affiche le thème au-dessus de la question ; dansFiche : pas de lien vers la fiche où l'on est */
+  function faqItem(f, avecTheme, jetons, dansFiche) {
+    const th = THEMES.find(t => t.id === f.th);
+    return '<details class="faq-item"><summary>' +
+      (avecTheme && th ? '<span class="faq-th">' + th.lbl + '</span>' : '') + surligner(f.q, jetons || []) + '</summary>' +
+      '<div class="faq-rep">' + f.r +
+      (f.fiche && !dansFiche ? '<br><button type="button" class="faq-voir" onclick="ouvrirFiche(\'' + f.fiche + '\')">Voir la fiche « ' + FICHES[f.fiche].replace('&', '&amp;') + ' »</button>' : '') +
+      '</div></details>';
+  }
+  function faqAfficher() {
+    const champ = document.getElementById('faqRecherche'), saisie = champ.value.trim(), jetons = jetonsDe(saisie);
+    const theme = document.getElementById('faqTheme').value;
+    document.getElementById('faqEffacer').classList.toggle('visible', saisie.length > 0);
+    let liste = jetons.length ? filtrer(jetons) : FAQ;
+    if (theme) liste = liste.filter(f => f.th === theme);
+    const cible = document.getElementById('faqListe'), compte = document.getElementById('faqCompte');
+    if (!liste.length) {
+      compte.textContent = '';
+      cible.innerHTML = '<div class="faq-vide"><b>Aucune question ne correspond' + (saisie ? ' à « ' + faqEsc(saisie) + ' »' : '') + '.</b><br>Essayez un autre mot ou <a href="#" onclick="faqEffacer();return false;">affichez toutes les questions</a>.</div>';
+      return;
+    }
+    compte.textContent = liste.length + (liste.length > 1 ? ' questions' : ' question') + (saisie ? ' pour « ' + saisie + ' »' : '');
+    let html = '';
+    THEMES.forEach(t => {
+      const l = liste.filter(f => f.th === t.id);
+      if (l.length) html += (theme ? '' : '<h3 class="faq-groupe">' + t.lbl + '</h3>') + l.map(f => faqItem(f, false, jetons)).join('');
+    });
+    cible.innerHTML = html;
+    if (jetons.length && liste.length === 1) cible.querySelector('details').open = true;
+  }
+  function faqEffacer() {
+    document.getElementById('faqRecherche').value = '';
+    document.getElementById('faqTheme').value = '';
+    faqAfficher(); document.getElementById('faqRecherche').focus();
+  }
+  document.getElementById('faqTheme').innerHTML = '<option value="">Tous les thèmes</option>' +
+    THEMES.map(t => '<option value="' + t.id + '">' + t.lbl + ' (' + FAQ.filter(f => f.th === t.id).length + ')</option>').join('');
+  document.getElementById('faqTheme').addEventListener('change', faqAfficher);
+  document.getElementById('faqRecherche').addEventListener('input', faqAfficher);
+  document.getElementById('faqRecherche').addEventListener('keydown', e => { if (e.key === 'Escape') { e.target.value = ''; faqAfficher(); } });
+  faqAfficher();
+
+  /* Accueil : les questions les plus posées, dépliables sur place */
+  const FAQ_ACCUEIL = ['ancien portail', 'dpae n’est pas', 'poste a renseigner', 'cabinet d’expertise', 'comment demander une visite'];
+  document.getElementById('faqNbTotal').textContent = FAQ.length;
+  document.getElementById('faqAccueilListe').innerHTML = FAQ_ACCUEIL
+    .map(m => FAQ.find(f => faqNorm(f.q).indexOf(faqNorm(m)) !== -1)).filter(Boolean)
+    .map(f => faqItem(f, false, [])).join('');
+
+  /* Fiches : les questions liées en bas de chaque fiche */
+  Object.keys(FICHES).forEach(id => {
+    const sec = document.getElementById('fiche-' + id); if (!sec) return;
+    const l = FAQ.filter(f => f.fiche === id); if (!l.length) return;
+    const nav = sec.querySelectorAll('.nav-fiche'), ancre = nav[nav.length - 1];
+    const d = document.createElement('div'); d.className = 'faq-contexte';
+    d.innerHTML = '<h3>Questions fréquentes sur ce sujet</h3>' + l.map(f => faqItem(f, false, [], true)).join('') +
+      '<button type="button" class="lien-fleche" onclick="ouvrirFiche(\'faq\')">Toutes les questions →</button>';
+    if (ancre) ancre.parentNode.insertBefore(d, ancre); else sec.querySelector('.fiche').appendChild(d);
+  });
+
+  /* Recherche depuis l'accueil : fiches + questions */
+  const MOTS_FICHES = {
+    connexion:'identifiant mot de passe code double authentification ancien portail', tiers:'cabinet comptable rh délégation utilisateur',
+    adhesion:'adherer adhesion simulation cotisation', salaries:'dpae poste risque pcs inactif contrat export ajouter',
+    visite:'rendez-vous convocation planification reprise', documents:'facture avis aptitude convocation telecharger',
+    etablissement:'contact interlocuteur siret adresse', tableau:'accueil statistiques roue crantee',
+    declaration:'effectif cotisation', amt:'map duerp document unique prevention'
+  };
+  function rechAccueil() {
+    const saisie = document.getElementById('rechAccueil').value.trim(), jetons = jetonsDe(saisie);
+    const zone = document.getElementById('rechAccueilResultats');
+    document.getElementById('rechAccueilEffacer').classList.toggle('visible', saisie.length > 0);
+    document.getElementById('groupesTuiles').style.display = jetons.length ? 'none' : '';
+    if (!jetons.length) { zone.innerHTML = ''; return; }
+    const fiches = Object.keys(MOTS_FICHES).filter(id => {
+      const b = document.querySelector('.tuile[onclick="ouvrirFiche(\'' + id + '\')"]');
+      const t = faqNorm((b ? b.textContent : FICHES[id]) + ' ' + FICHES[id] + ' ' + MOTS_FICHES[id]);
+      return jetons.every(j => t.indexOf(j) !== -1);
+    });
+    const qs = filtrer(jetons);
+    let h = '';
+    if (fiches.length) h += '<p class="res-titre">Fiches du guide</p><div class="tuiles">' + fiches.map(id => {
+      const b = document.querySelector('.tuile[onclick="ouvrirFiche(\'' + id + '\')"]');
+      return b ? b.outerHTML : '<button class="tuile" onclick="ouvrirFiche(\'' + id + '\')"><span class="lbl">' + FICHES[id] + '</span></button>';
+    }).join('') + '</div>';
+    if (qs.length) h += '<p class="res-titre">Questions fréquentes (' + qs.length + ')</p>' + qs.map(f => faqItem(f, true, jetons)).join('');
+    if (!h) h = '<div class="faq-vide"><b>Aucun résultat pour « ' + faqEsc(saisie) + ' ».</b><br>Essayez un autre mot, consultez <a href="#" onclick="ouvrirFiche(\'faq\');return false;">toutes les questions</a> ou appelez le <b>05 62 93 81 81, choix 0</b>.</div>';
+    zone.innerHTML = h;
+    if (!fiches.length && qs.length === 1) zone.querySelector('details').open = true;
+  }
+  function rechAccueilEffacer() { const c = document.getElementById('rechAccueil'); c.value = ''; rechAccueil(); c.focus(); }
+  document.getElementById('rechAccueil').addEventListener('input', rechAccueil);
+  document.getElementById('rechAccueil').addEventListener('keydown', e => { if (e.key === 'Escape') { e.target.value = ''; rechAccueil(); } });
+
+
+  /* Bouton « ← Accueil » en haut de chaque fiche, et en bas si la fiche n'en a pas */
+  document.querySelectorAll('section.ecran[id^="fiche-"] > .fiche').forEach(f => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'retour-haut'; b.textContent = '← Accueil'; b.onclick = allerAccueil;
+    f.insertBefore(b, f.firstChild);
+    if (!f.querySelector('.nav-fiche')) {
+      const n = document.createElement('div'); n.className = 'nav-fiche';
+      n.innerHTML = '<button class="btn-retour" onclick="allerAccueil()">← Accueil</button>';
+      f.appendChild(n);
+    }
+  });
+
+
+  /* Dans l'iframe du site : à chaque changement d'écran, ramener le haut du guide à l'écran
+     (scrollIntoView remonte la page du site) et prévenir le site parent au cas où. */
+  function remonterAuHaut() {
+    if (window.self === window.top) return;
+    const e = document.querySelector('.ecran.actif');
+    try { if (e) e.scrollIntoView({ block: 'start' }); } catch (x) {}
+    window.parent.postMessage({ type: 'asmt65-guide-haut' }, '*');
+  }
+  const _ouvrirFiche = ouvrirFiche, _allerAccueil = allerAccueil;
+  ouvrirFiche = function (id) { _ouvrirFiche(id); remonterAuHaut(); };
+  allerAccueil = function () { _allerAccueil(); remonterAuHaut(); };
 
   appliquerVu(); /* à l'ouverture : si déjà consulté, pas de mise en avant */
 
